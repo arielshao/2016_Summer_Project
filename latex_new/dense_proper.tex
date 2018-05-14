@@ -1,0 +1,59 @@
+\documentclass[11pt, a4paper]{amsart}
+\usepackage{bbm}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}[theorem]{Lemma}
+\begin{document}
+\title{$Y_1+Y_2$ is a dense subspace of $X$}
+\author{AILI SHAO}
+\maketitle
+\hrulefill
+\hrulefill
+\hrulefill
+
+We first consider the Dirichlet problem where $X=H_{0}^1(\Omega)$ and $\Omega=\Omega_1\cup\Omega_2$. If $Y_1=H_{0}^{1}(\Omega_1)$ and $Y_2=H_{0}^{1}(\Omega_2)$, then $Y_1+Y_2$ is a dense subspace of $X$.
+
+\begin{proof}
+We want to prove that $\overline{Y_1+Y_2}=X$.
+It suffices to show that for each $u\in C_{c}^{\infty}(\Omega)$, $u=u_1+u_2$ where $u_1\in C_{c}^{\infty}(\Omega_1)$, $u_2\in C_{c}^{\infty}(\Omega_2)$ since $C_{c}^{\infty}(\Omega_i)$ is dense in $H_{0}^{1}(\Omega_i)$ for each $i=1,2$. Suppose for $u\in C_{c}^{\infty}(\Omega)$,$\mathrm{supp} (u)=K$ where $K$ is a compact subset of $\Omega$. There exists $\varepsilon>0$ such that $K\subset (\Omega_1)_{\varepsilon}\cup (\Omega_2)_{\varepsilon}$ with $(\Omega_i)_{\varepsilon}=\{x\in \Omega_i, \mathrm{dist}(x, \Omega_{i}^{c})>\varepsilon\}$. Let $\varphi_i$ be the mollification of $\mathbbm{1}_{(\Omega_i)_{\varepsilon}\cap K}$ for $i=1,2$, then $\varphi_i \cdot u\in C_{c}^{\infty}(\Omega_i)$, and 
+\begin{align*}
+\|u-(\varphi_1 u+ \varphi_2 u)\|_{H_{0}^1}&=\| \bigtriangledown u -\bigtriangledown (\varphi_1 u+\varphi_2 u)\|_{L^2}\\
+{}&\leq \| \bigtriangledown u(1-(\varphi_1+\varphi_2))\|+\|u\bigtriangledown (\varphi_1+\varphi_2)\|_{L^2}\\
+{}& \leq C(\|1-(\varphi_1+\varphi_2))\|_{L^2}+\|\bigtriangledown (\varphi_1+\varphi_2)\|_{L^2})
+\end{align*}
+ for some positive constant $C$. The right hand side of the inequality tends to $0$ as $\varepsilon\to 0$, so the result follows.
+\end{proof}
+
+Now we prove the above statemnet for the Neumann problem with $H_{0}^{1}(\Omega)$ replaced by $H^1(\Omega)$, and $Y_i=\overline{Z_i}$ where $$Z_i:=\{u\in C^{\infty}(\Omega)\colon u=0 \mbox{ in the neighbourhood of } \Omega\setminus\Omega_1\}.$$ 
+In this case, $Y=Y_1+Y_2$ is a proper dense subspace of $X$.
+\begin{proof}
+\begin{enumerate}
+\item
+We first show that $Y=Y_1+Y_2$ is a proper subspace of $X$. Assume for contradiction that $X=Y_1+Y_2$, then for each $u\in X$, we have $u=u_1+u_2$ where $u_1\in Y_1$, $u_2\in Y_2$. Now we consider the trace defined as
+$$\mathrm{Tr}\colon H^{1} \to H^{\frac{1}{2}}(\partial \Omega).$$
+Since $u\equiv 1\in H^1(\Omega)$ and $u$ is continuous on $\overline{\Omega}$, then 
+$$1=\mathrm{Tr}u=\mathrm{Tr}(u_1+u_2)=\mathrm{Tr}u_1+\mathrm{Tr}u_2.$$
+We also have $\mathrm{Tr}u_1=0$ on $\partial\Omega_1$, and $\mathrm{Tr}u_2=0$ on $\partial\Omega_2$, so $\mathrm{Tr}u_2=1$ on $\gamma_1$ and $\mathrm{Tr}u_1=1$ on $\gamma_2$. This implies that $\mathrm{Tr}u_1=\mathbbm{1}_{\gamma_1}$ on $\gamma_1\cup\gamma_2$, but $\mathbbm{1}_{\gamma_1}\notin H^{\frac{1}{2}}\gamma_1\cup\gamma_2)$, thus yields a contradiction.
+
+\item
+Now we proceed to the density argument. Note that for each $u\in Y=Y_1+Y_2$, for $\varepsilon>0$,  there exists $\varphi_i\in Z_i$ such that $$\|u-\varphi_1-\varphi_2\|_{H^1}<\varepsilon.$$ Define
+$Z:\{\varphi \in C^{\infty}(\Omega)\colon \varphi=0 \mbox{ near the problematic points}\}$, then $Z=Z_1+Z_2$.
+ It suffices to show that for each $u\in C^{\infty}(\Omega)$, for all $\varepsilon>0$, there exists $\varphi\in Z$ such that $\|u-\varphi\|_{H^1}<\varepsilon$.
+We now simplify our proof by considering the two dimensional domain. Assume that $z$ is the probematic point, and consider the function $\varphi_{\varepsilon}\colon \Omega\to\mathbb{C}$ defined as 
+$$\varphi_{\varepsilon}(x,y)=\begin{cases} \left(\frac{|(x,y)-z|}{\varepsilon}\right)^{\varepsilon},\mbox{ for } r=|(x,y)-z|\in(0,\varepsilon), \\
+1,  \mbox{ otherwise}.\\
+\end{cases}$$
+
+
+For each $u\in C^{\infty}(\Omega)$, $u_{\varepsilon}:=u\cdot \varphi_{\varepsilon}\in Z$, then
+$$\|u-u_{\varepsilon}\|_{L^2}\rightarrow 0 \mbox{ as } \varepsilon\rightarrow 0,$$ and 
+\begin{align*}
+\|\bigtriangledown u-\bigtriangledown u_{\varepsilon}\|_{L^2}&=\| \bigtriangledown u (1-\varphi_{\varepsilon})-u\bigtriangledown \varphi_{\varepsilon}\|_{L^2}\\
+{}&\leq C(\|1-\varphi_{\varepsilon}\|_{L^2}+\|\bigtriangledown \varphi_{\varepsilon}\|_{L^2})
+\end{align*}
+for some positive constant $C$. As both $\|1-\varphi_{\varepsilon}\|_{L^2}$ and $\|\bigtriangledown \varphi_{\varepsilon}\|_{L^2}$ tend to $0$ as $\varepsilon\rightarrow 0$, $\|u-u_{\varepsilon}\|_{H^1}=\|u-u_{\varepsilon}\|_{L^2}+\|\bigtriangledown  u-\bigtriangledown u_{\varepsilon}\|_{L^2}\to 0$ as $\varepsilon\to 0$.
+\end{enumerate}
+\end{proof}
+
+\end{document}
+
+

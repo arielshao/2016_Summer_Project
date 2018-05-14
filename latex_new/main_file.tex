@@ -1,0 +1,236 @@
+\documentclass[12pt, a4paper]{book}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\usepackage{calc}
+\fancyheadoffset[LE,RO]{\marginparsep+\marginparwidth}
+\fancyhfoffset[L]{0.01cm}
+\fancyhfoffset[R]{0.01cm}
+\renewcommand{\chaptermark}[1]{\markboth{#1}{}}
+\renewcommand{\sectionmark}[1]{\markright{\thesection\ #1}}
+\fancyhf{}
+\fancyhead[LE,RO]{\thepage}
+\fancyhead[LO]{\rightmark}
+\fancyhead[RE]{\leftmark}
+\fancypagestyle{plain}%
+\fancyhead{} % get rid of headers
+\renewcommand{\headrulewidth}{0pt} % and the line
+\usepackage{titlesec} 
+\usepackage{bbm}
+\usepackage{mathrsfs}
+\usepackage{xypic}
+\usepackage{enumitem}
+\setenumerate{label={\rm (\alph{*})}}
+\usepackage[colorlinks=true,linkcolor=blue,urlcolor=blue]{hyperref}
+\usepackage{graphicx}
+\usepackage{geometry}
+\geometry{a4paper,left=35mm,right=35mm, top=40mm, bottom=30mm} 
+\titleformat{\chapter}[display]
+{\bfseries\Large}
+{\filright\MakeUppercase{\chaptertitlename} \Huge\thechapter}
+{1ex}
+{\titlerule\vspace{1ex}\filleft}
+[\vspace{1ex}\titlerule]
+\renewcommand{\thesection}{\thechapter.\arabic{section}}
+\titleformat{\section}{\bfseries\large}{\thesection.}{0.3em}{}
+\titlespacing{\section}{0pt}{12pt}{6pt}
+\titleformat{\subsection}[runin]{\bfseries}{\thesubsection.}{0.2em}{}
+\titlespacing{\subsection}{0pt}{12pt}{6pt}
+\numberwithin{equation}{section}
+\usepackage{etoolbox}
+\makeatletter
+\patchcmd{\@thm}{\thm@headfont{\scshape}}{\thm@headfont{\bfseries}}{}{}
+\patchcmd{\@thm}{\thm@notefont{\fontseries\mddefault\upshape}}{}{}{}
+\makeatother
+\newtheorem{theorem}{Theorem}[chapter]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem*{lemmazorn}{Zorn's Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{remo}[theorem]{Remark}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{convention}[theorem]{Convention}
+\newtheorem{counterexample}[theorem]{Counterexample}
+\newtheorem{hypothesis}[theorem]{Hypothesis}
+\newtheorem{question}[theorem]{Question}
+\newtheorem{proposition and definition}[theorem]{Proposition and Definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{notation}[theorem]{Notation}
+\newtheorem{assumption}[theorem]{Assumption}
+\newtheorem{Remark}[theorem]{Remark}
+\newtheorem{remark}[theorem]{Remark}
+\newtheorem{example}[theorem]{Example}
+\newtheorem{conjecture}[theorem]{Conjecture}
+\numberwithin{equation}{section}
+\renewcommand{\baselinestretch}{1.2}\normalsize
+\providecommand{\meantmp}[2]{#1\langle{#2}#1\rangle}
+\providecommand{\mean}[1]{\meantmp{}{#1}}
+\providecommand{\bigmean}[1]{\meantmp{\big}{#1}}
+\providecommand{\Bigmean}[1]{\meantmp{\Big}{#1}}
+\providecommand{\biggmean}[1]{\meantmp{\bigg}{#1}}
+\providecommand{\Biggmean}[1]{\meantmp{\Bigg}{#1}}
+\providecommand{\Ma}{\ensuremath{\mathcal{M}^\alpha}}
+\providecommand{\Mas}{\ensuremath{\mathcal{M}^\alpha_\sigma}}
+\providecommand{\Na}{\ensuremath{\mathcal{N}^{\alpha}}}
+\providecommand{\Nares}{\ensuremath{\Na_{\text{res}}}}
+\providecommand{\comment}[1]{\vskip.3cm
+\fbox{%
+\parbox{0.93\linewidth}{\footnotesize #1}}
+\vskip.3cm}
+\def\Xint#1{\mathchoice
+{\XXint\displaystyle\textstyle{#1}}%
+{\XXint\textstyle\scriptstyle{#1}}%
+{\XXint\scriptstyle\scriptscriptstyle{#1}}%
+{\XXint\scriptscriptstyle\scriptscriptstyle{#1}}%
+\!\int}
+\def\XXint#1#2#3{{\setbox0=\hbox{$#1{#2#3}{\int}$ }
+\vcenter{\hbox{$#2#3$ }}\kern-.6\wd0}}
+\def\ddashint{\Xint=}
+\def\dashint{\Xint-}
+\newcommand{\id}{\operatorname{Id}}
+\newcommand{\diag}{\operatorname{diag}}
+\newcommand{\diam}{\operatorname{diam}}
+\newcommand{\cof}{\operatorname{cof}}
+\newcommand{\im}{\operatorname{im}}
+\newcommand{\bd}{\operatorname{BD}}
+\newcommand{\bv}{\operatorname{BV}}
+\newcommand{\BV}{\operatorname{BV}}
+\newcommand{\BD}{\operatorname{BD}}
+\newcommand{\Leb}{\mathbf{L}}
+\newcommand{\sbd}{\mathbf{SBD}}
+\newcommand{\bdiv}{\mathbf{BD}_{\text{div}}}
+\newcommand{\bviv}{\mathbf{BV}_{div}}
+\newcommand{\ld}{\operatorname{LD}}
+\newcommand{\ep}{\varepsilon}
+\newcommand{\di}{\operatorname{div}}
+\newcommand{\Lip}{\operatorname{Lip}}
+\newcommand{\essential}{\operatorname{esssup}}
+\newcommand{\dif}{\operatorname{d}}
+\newcommand{\Radonfin}{M_{b}(\Omega,\mathbb{R}_{\text{sym}}^{d\times d})}
+\newcommand{\Radon}{M_{b}(\Omega,\mathbb{R}^{d\times d})}
+\newcommand{\DIF}{\mathbf{D}}
+\newcommand{\spt}{\operatorname{spt}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\X}{\mathbf{X}}
+\newcommand{\tr}{\operatorname{tr}}
+\newcommand{\eind}{\operatorname{ell ind}}
+\newcommand{\cod}{\operatorname{codim}}
+\newcommand{\cok}{\operatorname{Coker}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\x}{\mathbf{x}}
+\newcommand{\uu}{\mathbf{u}}
+\newcommand{\meas}{\operatorname{meas}}
+\newcommand{\locc}{\operatorname{loc}}
+\newcommand{\sing}{\operatorname{Sing}}
+\newcommand{\reg}{\operatorname{Reg}}
+\newcommand{\excess}{\operatorname{Ex}}
+\newcommand{\brz}{\operatorname{B}(z,r)}
+\newcommand{\brx}{\operatorname{B}(x,r)}
+\newcommand{\brxo}{\operatorname{B}(x_{0},r)}
+\newcommand{\broz}{\operatorname{B}(Z,\rho)}
+\newcommand{\dist}{\operatorname{dist}}
+\newcommand{\supp}{\operatorname{supp}}
+\newcommand{\gp}{\mathbf{g}_{p}}
+\newcommand{\range}{\operatorname{Ran}}
+\newcommand{\iu}{\operatorname{i}}
+\newcommand{\trace}{\operatorname{Tr}}
+\newcommand{\diameter}{\operatorname{diam}}
+\newcommand{\capa}{\operatorname{Cap}}
+\newcommand{\ranka}{\operatorname{rank}}
+\newcommand{\ranga}{\operatorname{Ran}}
+\newcommand{\bvc}{\operatorname{BV}_{\operatorname{c}}}
+\newcommand{\E}{\mathbf{E}}
+\newcommand{\wlim}{\operatorname{w^{*}-}\lim_{\varepsilon\searrow 0}}
+\newcommand{\wstar}{\stackrel{*}{\rightharpoonup}}
+\newcommand{\ball}{\operatorname{B}}
+\renewcommand{\rho}{\varrho}
+\newcommand{\Cc}{\operatorname{C}_{\operatorname{c}}}
+\renewcommand{\c}{\operatorname{c}}
+\renewcommand{\hom}{\operatorname{Hom}}
+\newcommand{\W}{\operatorname{W}}
+\newcommand{\ellind}{\operatorname{ellind}}
+\newcommand{\spano}{\operatorname{span}}
+\newcommand{\Con}{\operatorname{C}}
+\newcommand{\ad}{\mathbb{A}[D]u}
+\newcommand{\gm}{\operatorname{GM}}
+\newcommand{\finfty}{f^{\infty}}
+\newcommand{\yhat}{\ensuremath{\hat{y}}}
+\newcommand{\bspq}{\operatorname{B}_{p,q}^{s}}
+\newcommand{\lpw}{\operatorname{L}_{\omega}^{p}}
+\newcommand{\lp}{\operatorname{L}^{p}}
+\newcommand{\lloc}{\operatorname{L}_{\operatorname{loc}}^{1}}
+\newcommand{\mes}{\operatorname{mes}}
+\newcommand{\lebe}{\operatorname{L}}
+\newcommand{\sobo}{\operatorname{W}}
+\newcommand{\besov}{\operatorname{B}}
+\newcommand{\pv}{\operatorname{pv}}
+\newcommand{\hold}{\operatorname{C}}
+\newcommand{\traceop}{\operatorname{Tr}}
+\newcommand{\bvloc}{\operatorname{BV}_{\operatorname{loc}}}
+\renewcommand{\epsilon}{\varepsilon}
+\newcommand{\lpnorm}{\|\cdot\|_{p,\Omega}}
+\newcommand{\Span}{\operatorname{span}}
+\newcommand{\aff}{\operatorname{aff}}
+\newcommand{\con}{\operatorname{conv}}
+\newcommand{\B}{\mathbb B}
+\newcommand{\rank}{\operatorname{rank}}
+\newcommand{\interior}{\operatorname{int}}
+\newcommand{\Le}{\mathscr{L}^{n}}
+\newcommand{\so}{\operatorname{SO}}
+\newcommand{\Div}{\operatorname{div}}
+\newcommand{\orth}{\operatorname{O}}
+\newcommand{\spa}{\operatorname{span}}
+\newcommand{\proj}{\operatorname{proj}}
+\newcommand{\conv}{\operatorname{conv}}
+\newcommand\myeq{\mathrel{\overset{\makebox[0pt]{\mbox{\normalfont\tiny\sffamily DCT}}}{=}}}
+\newcommand\myeqIP{\mathrel{\overset{\makebox[0pt]{\mbox{\normalfont\tiny\sffamily IP}}}{=}}}
+\usepackage{tikz-cd}
+\begin{document}
+\frontmatter
+\begin{titlepage}
+\begin{center}
+\textsc{\LARGE University of Oxford}\\[1.5cm]
+\includegraphics[width=0.25\textwidth]{ox}\\[1cm]
+\textsc{\Large OxPDE Summer Project 2016}\\[0.5cm]
+\newcommand{\HRule}{\rule{\linewidth}{0.5mm}}
+\HRule \\[0.4cm]
+{ \huge \bfseries Orthogonal Projections in Hilbert Spaces}\\[0.4cm]
+\HRule \\[1.5cm]
+\textsc{\Large Aili SHAO} \\
+\textsc{\Large Magdalen College}
+\vfill
+\begin{center} {\large
+\emph{Under the Supervision of}}\\
+\end{center}
+\begin{center}{\large 
+Dr. David \textsc{Seifert}}
+\end{center}
+% bottom of page:
+%{\large Version of \today}
+\end{center}
+\end{titlepage}
+\newpage
+\input{0_1_abstract.tex}
+\input{0_2_acknowledgement.tex}
+\tableofcontents 
+\newpage
+\mainmatter
+\input{1_0_introduction.tex}
+\input{2_0_Iterated_Products_of_Projections_in_Hilbert_Space.tex}
+\input{2_1_Convergence.tex}
+\input{3_0_rate_of_convergence.tex}
+\input{3_1_dichotomy_results.tex}
+\input{3_2_Friedrichs_angles.tex}
+\input{4_0_Schwarz_Alternating_Method.tex}
+\input{4_1_one_dimensional_case.tex}
+\input{4_1_1_the_schwarz_alternating_method.tex}
+\input{4_1_2_Friedrichs_angles.tex}
+\input{4_2_N-dimensional_case.tex}
+\input{4_3_Demonstration_of_the_rate_of_convergence_in_Matlab.tex}
+\input{5_0_conclusion.tex}
+\input{6_0_appendices.tex}
+\input{6_1_appA.tex}
+\input{7_0_bibiliography.tex}
+\end{document}

@@ -1,0 +1,26 @@
+\begin{thebibliography}{10} 
+\addtolength{\leftmargin}{0.2in}
+\setlength{\itemindent}{-0.2in}
+\bibitem[BL97]{BL97} H.H.Bauschke, J.M.Borwein, and A.S.Lewis, \emph{The method of cyclic projections for closed
+convex sets in Hilbert space}, Contemporary Mathematics, Vol.204,(1997) 1–38.
+\bibitem[BL97]{BL97} H.H.Bauschke, J.M.Borwein, and A.S.Lewis, \emph{The method of cyclic projections for closed
+convex sets in Hilbert space}, Contemporary Mathematics, Vol.204,(1997) 1–38.
+\bibitem[De83]{De83} F.Deutsch \emph{Applications of von Neumann's alternating projections algorithm}, Mathematical Methods in Operations Research,(1983), 44-51
+\bibitem[DH15]{DH15} F.Deutsch, H.Hundal \emph{Arbitrarily slow convergence of sequences of linear operators}, Contemporay Mathematics,Vol. 636,(2015), 93-120
+\bibitem[BL97]{BL97} H.H.Bauschke, J.M.Borwein, and A.S.Lewis, \emph{The method of cyclic projections for closed
+convex sets in Hilbert space}, Contemporary Mathematics, Vol.204,(1997),1–38.
+\bibitem[DH10a]{DH10a}F.Deutsch, H.Hundal \emph{Slow convergence of sequences of linear operators I: Almost
+arbitrarily slow convergence}, J.Approx.Theory, 162 (2010),1701-1716.
+\bibitem[DH10b]{DH10b}F.Deutsch, H.Hundal \emph{Slow convergence of sequences of linear operators II: Almost
+arbitrarily slow convergence}, J.Approx.Theory, 162 (2010),1717-1738.
+\bibitem[HS69]{HS69} H.A.Schwarz,\emph{\"{U}ber einige Abbildungsaufgaben} Ges. Math. Abh.,11 (1869), 65-83
+\bibitem[IH62]{IH62} I.Halperin, \emph{The product of projection operators}, Acta Sei. Math. (Szeged) 23 (1962) 96-99. 
+\bibitem[JN33]{JN33}J. von Neumann \emph{Functional Operators Vol. II. The Geometry of Orthogonal Spaces}, Princeton University Press,Princeton, 1950 (a reprint of mimeographed lecture notes first distributed in 1933). 
+\bibitem[KW88]{KW88} S.Kayalar, H.L.Weinert\emph{Error bounds for the method of alternating projects} Math.Control Signals Systems 1(1988) 43-59
+\bibitem[NN53]{NN53}N.Nakano \emph{Spectral Theory in the Hilbert Space}, Japan Society for the Promotion of Science, Toyko,1953
+\bibitem[NW55]{NW55}N.Wiener, \emph{On the factorization of matrices}, Comment. Math. Helv. 29 (1955) 97-111. 
+\bibitem[SK40] {SK40} S.Kakutani, On Nakano's talk, \emph{Zenokuku Sugaku Danwakai Osaka} 192 (1940) 42-44 (Japanese). 
+\bibitem[PL88]{PL88} P.L.Lions \emph{On the Schwarz Alternating Method I}, SIAM, Philadelphia, 1988
+\end{thebibliography}
+
+

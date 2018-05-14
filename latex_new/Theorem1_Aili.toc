@@ -1,0 +1,4 @@
+\contentsline {section}{\tocsection {}{1}{General Notation}}{1}{section.1}
+\contentsline {section}{\tocsection {}{2}{Measure Theory}}{1}{section.2}
+\contentsline {subsection}{\tocsubsection {}{2.1}{General Measure Theory}}{2}{subsection.2.1}
+\contentsline {subsection}{\tocsubsection {}{2.2}{Notions from Geometric Measure Theory}}{3}{subsection.2.2}

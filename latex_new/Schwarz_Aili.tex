@@ -1,0 +1,84 @@
+\documentclass[11pt, a4paper]{amsart}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}[theorem]{Lemma}
+\begin{document}
+\title{Schwarz ALternating Method For One-dimensional domain}
+\author{AILI SHAO}
+\maketitle
+\hrulefill
+\hrulefill
+\hrulefill
+
+We take $\Omega=(0,1)\subset\mathbb{R}$, and decompose $\Omega$ into two subdomains $\Omega_1:=(0,r)$, $\Omega_2:=(s,1)$ with $s\leq r$ such that $\Omega=\Omega_1\cup\Omega_2$.
+
+Consider the Neumann Problem
+$$\begin{cases}
+-u''+u=f  \mbox{ in } \Omega, \\
+u'(0)=u'(1)=0\\
+\end{cases}$$
+where $\Omega=\Omega_1\cup\Omega_2$.
+
+Let $X=H^{1}(0,1)$. Since the one-dimensional Sobolev space $H^{1}(0,1)$ is embedded in the space $C([0,1])$ of continuous functions, we can identify each element of $H^{1}(0,1)$ with its corresponding representative in $C([0,1])$. Now define 
+$$Y_1:=\overline{\{\phi\in C^{\infty}(0,1):\phi=0 \mbox{ in the neighbourhood of } [r,1)\}}=H_{0}^{1}(\Omega_1),$$ and
+$$Y_2:=\overline{\{\phi\in C^{\infty}(0,1):\phi=0 \mbox{ in the neighbourhood of } (0,s]\}}=H_{0}^{1}(\Omega_2).$$
+
+Fix $u_0\in X$ and find $u_1$ by first solving
+$$\begin{cases}
+-u_1''+u_1=f  \mbox{ in } \Omega_1, \\
+u_1(r)=u_0(r),\\
+u_1^{\prime}(0)=0,\\
+\end{cases}$$ 
+and then extend by $u_0$ from $\Omega_1$ to all of $\Omega$.
+We repeat the procedure alternatingly to find $u_2,u_3,\cdots$ such that $u_{2n+1}$ (for $n\geq 0$) solves
+$$\begin{cases}
+-u_{2n+1}''+u_{2n+1}=f  \mbox{ in } \Omega_1, \\
+u_{2n+1}(r)=u_{2n}(r),\\
+u_{2n+1}^{\prime}(0)=0,\\
+\end{cases}$$ 
+while $u_{2n}$ (for $n\geq 1$) is a solution of 
+$$\begin{cases}
+-u_{2n}''+u_{2n}=f  \mbox{ in } \Omega_2, \\
+u_{2n}(r)=u_{2n-1}(s),\\
+u_{2n}^{\prime}(1)=0.\\
+\end{cases}$$  
+We may extend $u_{2n+1}$ by $u_{2n}$ and $u_{2n}=u_{2n-1}$ respectively to all of $\Omega$.
+
+Since $-(u_1-u)''+(u_1-u)=0 \mbox{ in } \Omega_1,$
+$\left\langle u_1-u,\phi\right\rangle_{H^1}=\int_{\Omega_1}(u_1-u)'\phi'+(u_1-u)\phi dx=\int_{\Omega_1}-(u_1-u)''\phi+(u_1-u)\phi dx=0$ for all $\phi\in Y_1$. This shows that $u_1-u\perp Y_1$. Let $M_i=Y_{i}^{\perp}$ for $i=1,2$, then $u_1-u\in M_1$. 
+
+If we take $w=u_1-u$, then $w$ satisfies
+$$\begin{cases}
+-w''+w=0 \mbox{ in } \Omega_1,\\
+w'(0)=0.\\
+\end{cases}$$
+By solving the above second order ordinary differential equation (ODE), we have $w=C(e^x+e^{-x})$ for some constant $C$. So $M_1=\emph{span}\{e^x+e^{-x}\}$.
+
+Similarly, $v:=u_2-u\in M_2$ and satisfies 
+$$\begin{cases}
+-v''+v=0 \mbox{ in } \Omega_2,\\
+v'(1)=0.\\
+\end{cases}$$
+
+The above ODE is solved by $v=D(e^x+e^{2-x})$ for some constant $D$, so $M_2=\emph{span}\{e^x+e^{2-x}\}$.
+
+Note that $u_0-u=(u_0-u_1)+(u_1-u)$ where $u_0-u_1\in Y_1=M_{1}^{\perp}$ and $u-u_1\in M_1$, so $u_1-u=P_{M_1}(u_1-u)$ where $P_{M_i}$ is the orthogonal projection onto $M_i$ for $i=1,2$. Similarly, $u_2-u=P_{M_2}(u_1-u)$ as $u_1-u=(u_1-u_2)+(u_2-u)$ where $u_2-u\in M_2$ and $u_1-u_2\in M_{2}^{\perp}$.
+
+Iteratively, $u_{2n+1}-u=P_{M_1}(u_{2n}-u)$ and $u_{2n}-u=P_{M_2}(u_{2n-1}-u)$ for $n\geq 1$.
+
+Let $T=P_{M_2}P_{M_1}$. If $x_{2n}:=u_{2n}-u$, $x_0:=u_0-u$, then $x_{2n}=T^n x_0$.
+By \emph{Von-Neumann Halperin Theorem}, $\lim_{n\rightarrow \infty}\|T^n x_0-P_{M}x_0\|=0$ where $M=M_1\cap M_2$. In this case $M=M_1\cap M_2=\{0\}$, so $P_{M}x_0=0$. Then $\lim_{n\rightarrow \infty} \|x_{2n}\|=0$, that is, $u_{2n}$ converges to $u$.
+Note that $x_{2n+1}=u_{2n+1}-u=P_{M_1}(u_{2n}-u)=P_{M_1}T^n x_0$.
+By definition of orthogonal projections, $T^n x_0\in M_1$, so $P_{M_1}T^n x_0=T^n x_0$.
+It follows that 
+$\lim_{n\rightarrow \infty}\|x_{2n+1}-x_0\|\leq\lim_{n\rightarrow \infty} (\|x_{2n+1}-x_{2n}\|+\|x_{2n}-x_0\|)=0$. That is, $u_{2n+1}$ converges to $u$ as well.
+
+Thus, the \emph{Schwarz Alternating Method} generates a sequence of solutions $\{u_n\}$ converging to the real solution $u$.
+
+\begin{align*}
+u(r)&=\int_{0}^{1} u{v_r}+ u'{v_r}' dx\\
+{}&=\int_{0}^{1} u{v_r} dx+\left[u{v_r}'\right]_{0}^{1}-\int_{0}^{1} u {v_r}''dx\\
+{}&=\int_{0}^{1} u({v_r}-{v_r}'')dx+\left[u{v_r}'\right]_{r^{+}}^{1}+\left[u{v_r}'\right]_{0}^{r^{-}}\\
+\end{align*}
+\end{document}
+
+

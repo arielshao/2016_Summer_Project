@@ -1,0 +1,49 @@
+\section{Convergence of the Iterated Products of Orthogonal Projections}
+In this section, we present a detailed proof of Halperin's result based on \emph{Kakutani's} lemma and proof \cite{SK40}.
+\begin{theorem}[von-Neumann Halperin]\label{halperin}Let $X$ be a Hilbert space and $P_j$ be the orthogonal projection onto the closed subspace $M_j$ of the Hilbert space $X$ for each $1\leq j\leq k$. Let $P_{M}$ be the orthogonal projection onto the intersection $M=M_1\cap M_2\cdots \cap M_k$. If $T=P_k\cdots P_1$, then $\|T^n x-P_{M}x\|\rightarrow 0$ for each $x\in X$ as $n\rightarrow\infty.$
+\end{theorem}
+Before we proceed to the proof of the main theorem, we introduce \emph{Kakutani's} lemma first:
+\begin{lemma}[Kakutani's Lemma]\label{1}
+Let $P_j$ and $T$ be defined as above. Then $\|T^n x-T^{n+1}x\|\rightarrow 0$ as $n\rightarrow\infty$.
+\begin{proof}
+For any $x\in X$, we have $$\|T^{n+1}x\|\leq \|T\|\|T^{n}x\|\leq \|P_k\|\cdots \|P_1\|\|T^n x\|\leq \|T^n x\|,$$ This shows that $\{\|T^n x\|\}$ is a decreasing sequence in $\mathbb{R}$ that is bounded below, thus it converges. In particular, $$\|T^n x\|^2-\|T^{n+1} x\|^2\rightarrow 0$$ as $n\rightarrow \infty$. Recall the Pythagorean Theorem which gives for any orthogonal projection $P$ and any $x\in X$,$$\|x-Px\|^2=\|x\|^2-\|Px\|^2.$$
+Define $Q_0=I$ and for $j=1,2,\cdots k, Q_j=P_jQ_{j-1}$, so that $Q_k=T$, then
+\begin{align*}
+\|T^n x-T^{n+1}x\|^2&=\|\sum_{j=0}^{k-1}(Q_jT^n x-Q_{j+1}T^n x\|^2\\
+&\leq \{\sum_{j=0}^{k-1}\|(Q_jT^n x-Q_{j+1}T^n x\|\}^2 \mbox{(By triangle inequality)}\\
+&\leq \left(\sum_{j=0}^{k-1}1 \right) \left( \sum_{j=0}^{k-1} \|(Q_j T^n x-Q_{j+1}T^n x\|^2 \right) \mbox {(By Cauchy-Schwarz inequality)}\\
+&=k\left( \sum_{j=0}^{k-1} \|(Q_j T^n x-Q_{j+1}T^n x\|^2 \right)\\
+&=k\left(\sum_{j=0}^{k-1} \|(Q_j T^n x\|^2-\|Q_{j+1}T^n x\|^2 \right)\mbox{ (By Pythagorean Theorem)}\\
+&=k \left(\|Q_0 T^n x\|^2-\|Q_k T^n x\|^2 \right)\\
+&=k \left(\|T^n x\|^2-\|T^{n+1} x\|^2 \right)\\
+&\rightarrow 0\\ 
+\end{align*}
+ as $\|T^n x\|^2-\|T^{n+1} x\|^2\rightarrow 0.$
+\end{proof}
+\end{lemma}
+
+Now we are ready to prove Theorem \ref{halperin}.
+\begin{proof}
+First note that
+\begin{align*}
+X&=\left(\mathrm{Im}(I-T)\right)^{\perp}\oplus\left(\mathrm{Im}(I-T)\right)^{\perp\perp} \mbox{ (Projection Theorem)}\\
+&=\left(\mathrm{Im}(I-T)\right)^{\perp}\oplus\overline{\mathrm{Im}(I-T)^{\perp}}\\
+&=\mathrm{Ker}(I-T^{\ast})\oplus\overline{\mathrm{Im}(I-T)^{\perp}}\\
+\end{align*}
+
+By Lemma \ref{1} $\|T^n(I-T)x\|=\|T^n x-T^{n+1}x\|\rightarrow 0$ as $n\rightarrow\infty$, then $\|T^n y\|\rightarrow 0$ for $y\in Im(I-T)$. As $\|T^n\|\leq\|T\|^n\leq (\|P_k\|\cdots \|P_1\|)^n\leq 1$, $T^n$ is a bounded linear operator, then $\|T^n y\|\rightarrow 0$ for $y\in \overline{\mathrm{Im}(I-T)}$.
+If we can show that
+\begin{equation}\label{2}
+\mathrm{Ker}(I-T^{\ast})=M_1\cap M_2\cdots \cap M_k,
+\end{equation} 
+then for each $x\in X$, we have $x=y+z$ such that $y\in \mathrm{Im}(I-T)$ while $z\in M$, and then
+$$\|T^n x-z\|=\|T^n(y+z)-z\|\leq \|T^n y\|+\|T^n z-z\|\rightarrow 0 $$
+as $n\rightarrow \infty$.
+Take $z=P_M(x)$, then the theorem follows.
+
+\par
+To show (\ref{2}), it suffices to show that $T^{\ast}x=x$ if and only if $P_i x=x$ for each $1\leq i\leq k$. If $P_i x=x$ for each $1\leq i\leq k$, then $T^{\ast}x=(P_k\cdots P_1)^{\ast}=P_1^{\ast}\cdots P_k^{\ast}x=P_1P_2\cdots P_k x=x$. Conversely, if $P_ix\neq x$ for some $1\leq i\leq k$, then $\|T^{\ast}x\|=\|P_1P_2\cdots P_k x\|\leq \|P_i x\|< \|x\|$, that is, $T^{\ast}x\neq x$.
+\end{proof}
+
+
+ 

@@ -1,0 +1,17 @@
+\contentsline {chapter}{Abstract}{iii}{chapter*.1}
+\contentsline {chapter}{Acknowledgement}{v}{chapter*.2}
+\contentsline {chapter}{\numberline {1}Introduction}{1}{chapter.1}
+\contentsline {chapter}{\numberline {2}Iterated Products of Orthogonal Projections in Hilbert Space}{3}{chapter.2}
+\contentsline {section}{\numberline {2.1}Convergence of the Iterated Products of Orthogonal Projections}{4}{section.2.1}
+\contentsline {chapter}{\numberline {3}Rate of Convergence}{7}{chapter.3}
+\contentsline {section}{\numberline {3.1}Dichotomy Results}{7}{section.3.1}
+\contentsline {section}{\numberline {3.2}Friedrichs Angles}{9}{section.3.2}
+\contentsline {chapter}{\numberline {4}Schwarz Alternating Method in elliptic PDEs}{13}{chapter.4}
+\contentsline {section}{\numberline {4.1}One Dimensional Case with Friedrichs Angles Calculated}{13}{section.4.1}
+\contentsline {subsection}{\numberline {4.1.1}The Schwarz Alternating Method}{15}{subsection.4.1.1}
+\contentsline {subsection}{\numberline {4.1.2}Calculation of the Friedrichs Angles}{17}{subsection.4.1.2}
+\contentsline {section}{\numberline {4.2}The two-dimensional Case}{18}{section.4.2}
+\contentsline {section}{\numberline {4.3}Demonstration of the rate of convergence in Matlab}{22}{section.4.3}
+\contentsline {chapter}{\numberline {5}Conclusion}{33}{chapter.5}
+\contentsline {chapter}{\numberline {6}Appendices}{35}{chapter.6}
+\contentsline {section}{\numberline {6.1}Appendix A}{35}{section.6.1}

@@ -1,0 +1,23 @@
+\chapter{Introduction}\label{chapt:intro}
+
+The present work is concerned with the application of the iterated product of orthogonal projections in Hilbert space in the form of \emph{Schwarz Alternating Method}.
+
+Consider the following Neumann problem on a 
+composite domain $\Omega=\Omega_1\cup\Omega_2$ where $\Omega\subset \mathbb{R}^n$ is open and bounded.
+$$\begin{cases}
+-\Delta u+u=f \mbox{ in } \Omega,\\
+\frac{\partial u}{\partial n}=0 \mbox{ on } \partial\Omega.\\
+\end{cases}$$ 
+
+One iterative approach for solving the above Neumann problem is the classic \emph{Schwarz Alternating Method}, which forms the starting point for \emph{domain decomposition techniques}. Our aim in this paper is to first introduce the \emph{Schwarz Alternating Method} mathematically, and then implement the algorithm for the two-dimensional composite domain in Matlab.
+
+The organisation of this paper is as follows:
+
+Chapter \ref{chapt:Iterated_Products_of_Projections_in_Hilbert_Space}
+introduces the theorem on convergence of the iterated products of an arbitrary finite number of orthogonal projections in Hilbert space which is known as the \emph{von-Neumann Halperin Theorem}.
+
+In chapter \ref{chapt:rate of convergence}, we follow the 2015 paper of \emph{Deutsch} and \emph{Hundal}\cite{DH15}, which introduces the \emph{Dichotomy Theorem} concerning the rate of convergence of the iterated products of linear operators and its applications in cyclic projections. We also introduce the concept of \emph{Friedrichs Angles} to present the rate of convergence for the two-dimensioanl case in a more elegant way.
+
+First two sections of chapter \ref{chapt:SAM} follow the 1988 paper of \emph{P.L.LIONS}\cite{PL88}, which introduces the \emph{Schwarz Alternating Method} that we use to describe the algorithm for solving the Neumann problem in both one-dimensional and two-dimensional composite domains. We then implement the algorithm in Matlab to solve the Poisson's equation with Neumann boundary condtions in a specific L-shaped domain and demonstrate the rate of convergence by plotting the error norms against the number of iterations.
+
+

@@ -1,0 +1,54 @@
+\subsection{Calculation of the Friedrichs Angles}\label{sec:friedrichs_1_d_case}\hfill
+
+Note that $Y=Y_1+Y_2$ is closed, and $Y=X$ if $s<r$ while $Y=\mathrm{Ker}\phi_r$ if $r=s$, where $\phi_r\in X^{\ast}$ is defined by $\phi_r(u)=u(r)$ for $u\in X$. By \emph{Riesz Representation Theorem}, there exists unique $v_r$ such that 
+$\phi_r(u)=\left\langle u, v_r\right\rangle _{H^1}$, that is
+
+\begin{align*}
+u(r)&=\int_{0}^{1} u{v_r}+ u'{v_r}' dx\\
+{}&=\int_{0}^{1} u{v_r} dx+\left[u{v_r}'\right]_{0}^{1}-\int_{0}^{1} u {v_r}''dx\\
+{}&=\int_{0}^{1} u({v_r}-{v_r}'')dx+\left[u{v_r}'\right]_{r^{+}}^{1}+\left[u{v_r}'\right]_{0}^{r^{-}}.\\
+\end{align*}
+
+We require that 
+$$\begin{cases}
+{v_r}''=v_r, \\
+{v_r}'(r^{-})-{v_r}'(r^{+})=1,\\
+v_r(r^{-})=v_{r}(r^{+}),\\
+{v_r}'(1)={v_r}'(0)=0.\\
+\end{cases}$$ 
+
+By solving the above equations, we have 
+$${v_r}=\begin{cases}
+\frac{\cosh(1-r)}{\sinh(1)}\cosh x, \mbox{ for } 0<x<r,\\
+\frac{\cosh(r)}{\sinh(1)}\cosh(1-x), \mbox{ for } r<x<1.\\
+\end{cases}$$ 
+
+Then we know that $$\|\phi_r\|^2=\|v_r\|^2=\left\langle v_r,v_r\right\rangle_{H^1}=\frac{\cosh(r)\cosh(1-r)}{\sinh(1)}.$$
+
+Similiar as before, we let $M_i=Y_{i}^{\perp}$ for $i=1,2$. If $s<r$, $$M^{\perp}=(Y_1^{\perp}\cap Y_{2}^{\perp})^{\perp}=Y_1^{\perp\perp}+Y_2^{\perp\perp}=Y=X,$$
+so $M={0}$. 
+If $s=r$, we have $$M=M^{\perp\perp}=Y^{\perp}=(\mathrm{Ker}\phi_r)^{\perp}=\left\langle v_r\right\rangle$$.
+
+We now calculate the \emph{Friedrichs number} $c(M_1,M_2)$.
+
+Note that for $u\in H^1(0,1)$, $u-P_1 u$ is orthogonal to $M_1$, that is, $u-P_1u\in Y_1$, then for $x\in (r,1)$, $P_1u(x)=u(x)$. By previous calculation, we know that $M_1=\mathrm{span}\{\cosh x\}$, then $P_1 u(x)=A \cosh x$ for $x\in (0,r)$. By continuity at $r$, $A=\frac{u(r)}{\cosh r}$. Thus
+$$P_1u(x)=\begin{cases} u(r)\frac{\cosh(x)}{\cosh(r)}, \mbox{ for } 0<x<r,\\
+u(x), \mbox{ for } r<x<1.\\
+\end{cases}$$
+
+By a similar argument, we have
+$$P_2u(x)=\begin{cases}u(x), \mbox{ for } 0<x<s,\\
+u(s)\frac{\cosh(1-x)}{\cosh(1-s)}, \mbox{ for } s<x<1,\\
+\end{cases}$$
+for all $u\in X$.  For $T=P_2P_1$, we have 
+
+$$Tu(x)=\begin{cases} u(r)\frac{\cosh x}{\cosh r}, \mbox{ for } 0<x<s,\\
+u(r)\frac{\cosh(s)\cosh(1-x)}{\cosh r\cosh (1-s)}, \mbox{ for } s<x<1.\\
+\end{cases}$$
+
+Thus 
+$$Tu=\frac{\sinh(1)\phi_r(u)}{\cosh r\cosh(1-s)}v_s$$
+for all $u\in X$.
+If $s<r$, $M={0}$, then $P_{M}=0$. 
+$$c(M_1,M_2)=\|T-P_M\|=\|T\|=\frac{\sinh(1)\|\phi_r\|\|\phi_s\|}{\cosh r\cosh(1-s)}=\sqrt{\frac{\cosh(1-r)\cosh(s)}{\cosh(1-s)\cosh(r)}}.$$
+If $s=r$, then $M=\left\langle v_r\right\rangle$. Since $Tv_r=v_r, T=P_{M}$, and $c(M_1,M_2)=\|T-P_{M}\|=0$.

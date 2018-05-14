@@ -1,0 +1,98 @@
+\section{Friedrichs Angles}\label{sec:friedrichs}
+In order to apply the \emph{Von-Neumann Halperin Theorem} in the method of alternating projections, it is important to know the \emph{Friedrichs Angle} which is defined in the following sense:
+\begin{definition}
+Let $X$ be a Hilbert space, and $M_1$, $M_2$ are two closed subspaces of $X$ with intersection $M:=M_1\cap M_2$. The \emph{Friedrichs angle} between $M_1$ and $M_2$ is defined to be the angle in $[0,2\pi]$ whose cosine is given by
+$$ c(M_1,M_2)=\sup\{|\left\langle x,y\right\rangle|\colon x\in M_{1}\cap M^{\perp}, \|x\|\leq 1, y\in M_2\cap M^{\perp},\|y\|\leq 1\}.$$
+\end{definition}
+
+Now we can deduce a relationship between the rate of convergence and the Friedrichs angle between the two closed subspaces $M_1$, $M_2$.
+\begin{theorem}(\cite{KW88})\label{t1}
+Let $X$ be a Hilbert space, and $M_1, M_2$ and $M$ be defined as above. If $P_1$ and $P_2$ are the orthogonal projections onto $M_1$ and $M_2$ respectively, and $P_M$ is the orthogonal projection onto $M$, then for each $n\in\mathbb{N}$, we have
+$$\|(P_2P_1)^n-P_{M}\|=c(M_1,M_2)^{2n-1}.$$
+\end{theorem}
+Before proving the main theorem, we introduce some fundamental results first.
+\begin{lemma}\label{l1}
+Let $Q_i:=P_i(I-P_{M})$ for each $i=1,2$, then $$(P_2P_1)^n-P_M=(Q_2Q_1)^n.$$
+\begin{proof}
+\begin{align*}
+(P_2P_1)^n-P_M &= (P_2P_1)^n-(P_2P_1)^n P_M\\
+{}&=(P_2P_1)^n(I-P_M)\\
+{}&=(P_2P_1)^n P_{M^{\perp}}\\
+{}&=(P_2P_1)^n P_{M^{\perp}}^n  \mbox{ as } P_{M^{\perp}}^2=P_{M^{\perp}} \\
+{}&= (P_2P_1 P_{M^{\perp}})^n   \mbox{ as } P_2P_1 \mbox{ commutes with } P_{M^{\perp}}\\
+{}&=(P_2 P_{M^{\perp}} P_1 P_{M_{\perp}})^n\\
+{}&=(Q_2Q_1)^n
+\end{align*}
+where the second last inequality follows from $P_i$ commuting with $P_{M^{\perp}}$.
+\end{proof}
+\begin{lemma}\label{l2}
+If $T\in B(X)$ with $X$ being a Hilbert space is a self-adjoint linear operator, then for each $n\in\mathbb{N}\cup\{0\}$,
+$$\|T^n\|=\|T\|^n.$$
+\end{lemma}
+\begin{proof}
+Note that if $T$ is self-adjoint, we have $\|T^2\|=\|T\|^2$. (B4.2 Hilbert space lecture notes) 
+Similarly, $\|T^4\|=\|T^2\|^2=\|T\|^4$. By induction, the result is true for $n=2^m$ with $m\in \mathbb{N}\cup\{0\}$.  
+
+For any $n\in\mathbb{N}$ not in this form, we can write $n=2^m-r$ for some $m,r\in\mathbb{N}\cup\{0\}$, then 
+$\|T\|^{n+r}=\|T^{n+r}\|\leq \|T^{n}\|\|T^r\|\leq\|T^n\|\|T\|^r$. This gives $\|T\|^n\leq \|T^n\|$, and thus $\|T^n\|=\|T\|^n$.
+\end{proof}
+\end{lemma} 
+\begin{lemma}\label{l3}
+$c(M_1,M_2)=\|Q_2Q_1\|=\sqrt{\|Q_1Q_2Q_1\|}$.
+\end{lemma}
+\begin{proof}
+By definition, we have
+\begin{align*}
+c(M_1,M_2)&=\sup\{|\left\langle x,y\right\rangle|\colon x\in M_{1}\cap M^{\perp}, \|x\|\leq 1, y\in M_2\cap M^{\perp},\|y\|\leq 1\}\\
+{}&=\sup\{|\left\langle P_{M_1\cap M^{\perp}}x, P_{M_2\cap M^{\perp}}y\right\rangle|\colon \|x\|\leq 1,\|y\|\leq 1\}\\
+{}&=\sup\{|\left\langle P_{M_2\cap M^{\perp}}P_{M_1\cap M^{\perp}}x, y\right\rangle|\colon \|x\|\leq 1,\|y\|\leq 1\}\\
+{}&=\|P_{M_2\cap M^{\perp}}P_{M_1\cap M^{\perp}}\|\\
+{}&=\|(P_{M_2}P_{M^{\perp}})(P_{M_1}P_{M^{\perp}})\| \mbox{ as } P_{i} \mbox{ commutes with } P_{M^{\perp}} \mbox{ for } i=1,2 \\
+{}&=\|Q_2Q_1\|.
+\end{align*}
+Also, $\|Q_2Q_1\|^2=\|(Q_2Q_1)^{\ast}Q_2Q_1\|=\|Q_1Q_2Q_2Q_1\|=\|Q_1Q_2Q_1\|$, then the second inequality follows.
+\end{proof}
+Now we are ready to prove Theorem \ref{t1}:
+\begin{proof}
+By Lemma \ref{l1}, $\|(P_2P_1)^n-P_M\|=\|(Q_2Q_1)^n\|$. Since $((Q_2Q_1)^n)^{\ast}=(Q_1Q_2)^n$, we have 
+$$\|(Q_2Q_1)^n\|^2=\|(Q_1Q_2)^n(Q_2Q_1)^n\|=\|(Q_1Q_2Q_1)^{2n-1}\|.$$
+
+As the operator $Q_1Q_2Q_1$ is self-adjoint, it follows from Lemma \ref{l2} that $$\|(Q_1Q_2Q_1)^{2n-1}\|=\|Q_1Q_2Q_1\|^{2n-1}.$$
+
+By applying Lemma \ref{l3}, the result then follows.
+\end{proof}
+Therefore, $\|(P_2P_1)^n-P_M\|$ converges to $0$ expoentially fast if and only if $c(M_1,M_2)<1$.
+\par
+
+\begin{theorem}
+Let $M_i$ for $1\leq i\leq r$ be closed subspaces in the Hilbert space $X$, and $M:=\bigcap_{i}^r M_i.$ Let $P_{i}$ and $P_{M}$ be the orthogonal projections onto $M_i$ and $M$ respectively. If $T=P_rP_{r-1}\cdots P_1$, then $\|T^n-P_M\|$ converges to $0$ exponetially fast if and only if $\mathrm{Im}(I-T)$ is closed.
+\begin{proof}
+Since $M:=\bigcap_{i}^r M_i$ is closed, $X=M\oplus M^{\perp}$. We have proved that $M=\mathrm{Ker}(I-T^{\ast})$, it follows that $M^{\perp}=\overline{\mathrm{Im}(I-T)}$. Let $	Y=\mathrm{Im}(I-T)$, and $Z=\overline{Y}$.
+
+In the proof of the \emph{dichotomy results}, we have showed that the convergence is exponentially fast if and only if $r(S)<1$ where $S:=T\mid_{Z}=TP_{M^{\perp}}$.
+Then $I-S\colon Z\to Z$ has trivial kernel since if
+$(I-S)x=0$ for some $x\in Z$, we have $x=Sx=Tx$, that is, $x\in M^{\perp}\cap M=\{0\}$. 
+We also have $\mathrm{Im}(I-S)=Y$. For each $y\in \mathrm{Im}(I-S)$, there exists $x\in Z$ such that 
+\begin{align*}
+y&=(I-S)x\\
+{}&=x-Sx \\
+{}&=x-TP_{M^{\perp}}x \\
+{}&=x-Tx  \mbox{ as } x\in Z=M^{\perp}\\
+{}&=(I-T)x. 
+\end{align*}
+This implies that $\mathrm{Im}(I-S)\subseteq Y$.
+If $y\in Y=\mathrm{Im}(I-T)$, there exists $x\in X$ such that 
+\begin{align*}
+y&=P_{M^{\perp}}y \mbox{ as } y\in Y\subseteq M^{\perp}\\
+{}&=P_{M^{\perp}}(I-T)x \\
+{}&=P_{M^{\perp}}x-P_{M^{\perp}}Tx \\
+{}&=P_{M^{\perp}}x-P_{M^{\perp}}^{2}Tx \\
+{}&=P_{M^{\perp}}(I-P_{M^{\perp}}T)x\\
+{}&=P_{M^{\perp}}(I-TP_{M^{\perp}})x \mbox{ as } T \mbox{ commutes with } P_{M^{\perp}} \\
+{}&=P_{M^{\perp}}(I-S)x \\
+{}&=(I-S)x.
+\end{align*}
+This shows that $Y\subseteq \mathrm{Im}(I-S)$.
+So $I-S$ is a bounded bijiection from $Z$ onto $Y$. By \emph{Inverse Mapping Theorem}, $I-S$ is invertible if and only if $Y=Z$. So $1\in \sigma(S)$ if and only if $Y\neq Z$. That is $r(S)<1$ if and only if $Y=Z$.
+\end{proof}
+\end{theorem}

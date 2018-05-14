@@ -1,0 +1,62 @@
+\section{Dichotomy Results}\label{sec:dichotomy results}
+Here we present a dichotomy theorem which is slightly different from the one introduced by \emph{Deutsch} and \emph{Hundal}:
+\begin{theorem}(\cite{DH15})\label{theorem}
+Let $X$ be a Banach space and $T\colon X\to X$ be a linear operator with $\|T\|\leq 1$ and $T^n(x)\rightarrow 0$ for each $x\in X$, then exactly one of the following two statements hold:
+\begin{enumerate}
+\item there exists $n_1\in\mathbb{N}$ such that $\|T^{n_1}\|<1$, and there exists $\alpha\in [0,1)$ and $c\in \mathbb{R}$ such that $\|T^n\|\leq c\alpha^n$ for each $n$.
+\item $\|T^n\|=1$ for each $n\in\mathbb{N}$, and for each $(r_n)\in c_0$, $r_n\in\mathbb{R}^{+}$, for all $x\in X$, $\|T^n x\|\neq O(r_n)$.
+\end{enumerate}
+\begin{proof}
+For $T\in B(X)$, $\mathrm{r}(\sigma(T))=\lim_{n\rightarrow\infty}\|T^n\|^{\frac{1}{n}}\leq \lim_{n\rightarrow\infty}\|T\|\leq 1$. This shows that the spectrum of $T$ lie in the closed unit disc. 
+
+If $\mathrm{r}(\sigma(T))<1$, then there exists $n_1\in\mathbb{N}$ such that $\rho:=\|T^{n_1}\|<1$.
+ 
+If $\rho>0$, we take $\alpha:=\rho^{\frac{1}{n_1}}$, for any $n\in\mathbb{N}$, we can write $n=kn_1+i$ for some non-negative integer $k$ and $i\in\{0,1,\cdots n_{1}-1\}$. Then $\|T^n\|=\|T^{kn_1+i}\|\leq \|T^{n_1}\|^k=\rho^k=\alpha^{n_1k}\leq c\alpha^n$ where $c= \frac{1}{\alpha^{n_1-1}}$.
+
+If $\rho=0$, $\|T^n\|\leq 2^{n_1}(\frac{1}{2})^n$ for each $n\in\mathbb{N}$, then we take $\alpha=\frac{1}{2}$ and $c=2^{n_1}$.
+\par
+If $\mathrm{r}(\sigma(T))=1$, then $\mathrm{r}(\sigma(T))\leq\|T\|\leq 1$ implies $\|T\|=1$. $\|T^n\|=1$ for each $n\in\mathbb{N}$ since if $\|T^N\|<1$ for some $N\in\mathbb{N}$, we have $\mathrm{r}(\sigma(T))=lim_{n\rightarrow \infty}\|T^n\|^{\frac{1}{n}}\leq\lim_{n\rightarrow \infty}\|T^N\|^{\frac{1}{n}}<1$ which yields a contradiction. We assume for contradiction that for each $x\in X$, there exists constant $c_x>0$ such that $\|T^n x\|\leq c_x r_n$ for each $n\in\mathbb{N}$. Since $X$ is a Banach Space, \emph{Uniform Boundedness Theorem} tells $\|T^n\|\leq C r_n$ with $C$ independent of $x$, then $\|T^n\|\rightarrow 0$ as $n\rightarrow \infty$. This contradicts $\|T^n\|=1$. 
+\end{proof}
+\end{theorem}
+
+Before applying the above dichotomy results to the rate of convergence of the cyclic projections in Hilbert space, we first introduce an important lemma which was proved by \emph{Bauschke, Borwein and Lewis} in \cite{BL97} by using regularities:
+\begin{lemma}\label{lemma}
+Let $M_i$ for $1\leq i\leq r$ be closed subspaces in the Hilbert space $X$, and $M:=\bigcap_{i}^r M_i.$ Let $P_{M_i\cap M^{\perp}}$ be the orthogonal projection onto $M_i\cap M^{\perp}$ for each $i=1,2,\cdots r$. Then the following are equivalent 
+\begin{enumerate}
+\item $\sum_{i=1}^r M_{i}^{\perp}$ is closed;
+\item $\|P_{M_r\cap M^{\perp}}P_{M_{r-1}\cap M^{\perp}}\cdots P_{M_1\cap M^{\perp}}\|<1;$
+\end{enumerate}
+\end{lemma}
+Now we can deduce the \emph{Von Neumann-Halperin Dichotomy} from \emph{Theorem} \ref{theorem} and the above lemma:
+\begin{theorem}(\cite{DH15})\label{theorem2}
+Let $M_i$ for $1\leq i\leq r$ be closed subspaces in the Hilbert space $X$, and $M:=\bigcap_{i}^r M_i.$ Let $T=P_{r}P_{r-1}\cdots P_{1}$ where $P_{i}$ is the orthogonal projection on $M_i$. Then exactly one of the two following statements holds:
+\begin{enumerate}
+\item $\sum_{i=1}^r M_{i}^{\perp}$ is closed, then there exists $\alpha\in [0,1)$ and $c\in \mathbb{R}$ such that $\|T^n-P_{M}\|\leq c\alpha^n$ for each $n$.
+\item $\sum_{i=1}^r M_{i}^{\perp}$ is not closed, then for each $(r_n)\in c_0$, $r_n\in\mathbb{R}^{+}$, for all $x\in X$, $\|T^n x-P_{M}x\|\neq O(r_n)$.
+\end{enumerate}
+\begin{proof}
+If $\sum_{i=1}^r M_{i}^{\perp}$ is closed, we have $\|P_{M_r\cap M^{\perp}}P_{M_{r-1}\cap M^{\perp}}\cdots P_{M_1\cap M^{\perp}}\|<1$ (by \emph{Lemma \ref{lemma}}).
+
+Note that 
+\begin{align*}
+T^n-P_{M}&=T^n-T^nP_M \\
+{}&=T^n(I-P_{M})\\
+{}&=T^n P_{M^{\perp}}\\
+{}&=T^n P_{M^{\perp}}^n \mbox{ since } P_{M^{\perp}}^2=P_{M^{\perp}}\\
+{}&=(TP_{M^{\perp}})^n \mbox{ since } T \mbox{ commutes with } P_{M^{\perp}}\\
+{}&=[(P_{r}P_{M^{\perp}})(P_{r-1}P_{M^{\perp}})\cdots (P_{1}P_{M^{\perp}})]^n\\
+{}&=[(P_{M_r\cap M^{\perp}})(P_{M_{r-1}\cap M^{\perp}})\cdots (P_{M_1\cap M^{\perp}})]^n.
+\end{align*}
+The second last equality follows from $P_{i}$ commuting with $P_{M^{\perp}}$ and $P_{M^{\perp}}^2=P_{M^{\perp}}$ while the last equality is true because $P_{i}P_{M^{\perp}}=P_{M_i\cap M^{\perp}}$.
+
+By taking $\|P_{M_r\cap M^{\perp}}P_{M_{r-1}\cap M^{\perp}}\cdots P_{M_1\cap M^{\perp}}\|=\alpha\in [0,1)$, we have 
+\begin{align*}
+\|T^n-P_{M}\|&=\|[(P_{M_r\cap M^{\perp}})(P_{M_{r-1}\cap M^{\perp}})\cdots (P_{M_1\cap M^{\perp}})]^n\|\\
+{}&\leq \|(P_{M_r\cap M^{\perp}})(P_{M_{r-1}\cap M^{\perp}})\cdots (P_{M_1\cap M^{\perp}})\|^n\\
+{}&=\alpha^n.
+\end{align*}
+In this case, $c=1$ and the result follows.
+\par
+If $\sum_{i=1}^r M_{i}^{\perp}$ is not closed, by \emph{Lemma} \ref{lemma}, $\|P_{M_r\cap M^{\perp}}P_{M_{r-1}\cap M^{\perp}}\cdots P_{M_1\cap M^{\perp}}\|=1$, and then $\|[P_{M_r\cap M^{\perp}}P_{M_{r-1}\cap M^{\perp}}\cdots P_{M_1\cap M^{\perp}}]^n\|=1$. By \emph{Theorem \ref{theorem}(b)}, the result follows.
+\end{proof}
+\end{theorem}

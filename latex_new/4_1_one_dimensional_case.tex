@@ -1,0 +1,34 @@
+\section{One Dimensional Case with Friedrichs Angles Calculated}\label{sec:one-d_case} 
+
+Take $\Omega=(0,1)\subset\mathbb{R}$, and decompose $\Omega$ into two subdomains $\Omega_1:=(0,r)$, $\Omega_2:=(s,1)$ with $s\leq r$ such that $\Omega=\Omega_1\cup\Omega_2$.
+
+In this section, we aim to apply the \emph{Schwarz Alternating Method} in solving the one-dimensional Neumann problem of the following form:
+$$\begin{cases}
+-u''+u=f  \mbox{ in } \Omega, \\
+u'(0)=u'(1)=0\\
+\end{cases}$$
+where $\Omega=\Omega_1\cup\Omega_2$.
+
+Note that for the one-dimensional case, the weak formulation of the solution of the above equation concides with the classical solution. In order to prove this claim, we need the \emph{Fundamental Lemma of Calculus of Variations}:
+\begin{lemma}\label{FTCV}
+For $f, g\in C(0,1)$ such that 
+$$\int_{0}^{1} (f\varphi +g\varphi ') dx=0$$
+for all $\varphi\in C_{0}^{\infty}(0,1)$, we have $g\in C^1(0,1)$ and $g'=f$.
+\end{lemma}
+
+The weak formuation of the solution is 
+$$\int_{0}^1 u'\varphi '+u\varphi dx=\int_{0}^1 f \varphi dx$$ for all $\varphi\in C^{\infty}(0,1)$. Let $v\in C^1(0,1)$ be the primitive function of $u$, that is, $v(x)=\int_{0}^{x}u(s) ds$, while $\phi\in C_{0}^{\infty}(0,1)$ satisfy $\varphi=\int_{0}^{\infty} \phi(s) ds$. Note that 
+$$\int_{0}^{1} u'\varphi ' dx=\left[ u \varphi '\right]_{0}^{1}-\int_{0}^{1} u\varphi'' dx=-\int_{0}^{1} u\varphi '' dx$$ for all $\varphi' \in C_{0}^{\infty}$. Since $\varphi'=\phi$, we have 
+$$\int_{0}^{1} u'\phi=-\int_{0}^{1} u\phi ' dx$$.
+Then 
+\begin{align*}
+\int_{0}^{1} f\varphi dx&=\int_{0}^{1} u'\varphi '+u \varphi dx\\
+{}&=-\int_{0}^{1} u\phi' dx +\left[v \varphi\right]_{0}^{1}-\int_{0}^{1} v\phi dx \\
+{}&=-\int_{0}^{1} u\phi' +v\phi dx
+\end{align*}
+If $F$ is the primitive function of $f$, say $F(x)=\int_{0}^{x} f(s) ds$, then 
+$$\int_{0}^{1} f\varphi dx =\left[ F\varphi\right]_{0}^{1}-\int_{0}^{1} F \phi dx.$$
+Rearranging gives 
+$$\int_{0}^{1} (u\phi'+(v-F)\phi) dx.$$
+
+By Lemma \ref{FTCV}, we have $u\in C^1$ and $u'=v-F$. Since $v, F\in C^1$, $u\in C^2$.

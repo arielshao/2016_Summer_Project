@@ -1,0 +1,7 @@
+\chapter{Schwarz Alternating Method in elliptic PDEs}\label{chapt:SAM}
+The Schwarz alternating method, first introduced by \emph{Hermann Schwarz}\cite{HS69} in 1869, is a classical iterative method for solving boundary value problem for harmonic functions. It described an iterative method for solving the Dirichlet problem in the union of two overlapping regions provided that the intersection was suitably well behaved.
+
+In the 1950s, Schwarz's method was generalized in the theory of partial differential equations to an iterative method for finding the solution of a elliptic boundary value problem on a domain which is the union of two overlapping subdomains.  It solves the boundary value problem on each of the two subdomains in turn, passing the approximate solutions to the next boundary conditions. 
+
+In the first section of this chapter, we start with decribing the \emph{Schwarz Alternating Method} for the one-dimensional Neumann boundary problem, and then calculate the relative \emph{Friedrichs Angles}. In the second section, this method is generalized to the two-dimensional case. Then we end this chapter with the demonstration of this method for an L-shape two-dimensional domain in Matlab.
+

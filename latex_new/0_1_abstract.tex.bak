@@ -1,0 +1,2 @@
+\chapter{Abstract}\label{chapt:abstract}
+This project is about the application of orthogonal projections in solving Poisson's equation on composite domains by using an iterative approach which is called \emph{Schwarz Alternating Method}. This classic alternating method is both discussed theoretically and numerically in this paper. The theoretical part consists of the proof of the convergence and the rate of convergence of this method, while the numerical section involves the implementation of the alogrithm in Matlab to test some theoretical conjectures.
