@@ -1,0 +1,1119 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>lshape_neumann_meshsize</title><meta name="generator" content="MATLAB 8.5"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2016-09-20"><meta name="DC.source" content="lshape_neumann_meshsize.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; } 
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><h2>Contents</h2><div><ul><li><a href="#1">Fix parameters</a></li><li><a href="#2">Export geometry</a></li><li><a href="#3">Define the problem</a></li><li><a href="#4">Generate the mesh</a></li><li><a href="#6">Obtain relative matrices</a></li><li><a href="#7">Assign true solution</a></li><li><a href="#8">Iterations</a></li><li><a href="#10">Plot of <tt>|u_n-u_true</tt>| versus Nsteps</a></li></ul></div><h2>Fix parameters<a name="1"></a></h2><pre class="codeinput">tic;
+Nsteps = 80;   <span class="comment">% Number of iterations</span>
+Nplot = 101;   <span class="comment">% Fineness of plots</span>
+T = 10*eps;   <span class="comment">% Time delay</span>
+az = 13;      <span class="comment">% Plot viewing angle</span>
+el = 48;      <span class="comment">% Plot viewing height</span>
+v = 0.0;      <span class="comment">% Camera speed</span>
+fix_axes = 0;               <span class="comment">% Set to 1 for fixed axes</span>
+plot_range = [-0.1 1.1];    <span class="comment">% z-axis range if fixed</span>
+<span class="comment">% col_range = plot_range;   % Fixed colour range</span>
+<span class="comment">% col_range = [-.7 1.1];</span>
+col_range = <span class="string">'manual'</span>;       <span class="comment">% Varying colour range</span>
+rec = 0;                    <span class="comment">% record on/off</span>
+xg = linspace(-1,1,Nplot);
+yg = linspace(-1,1,Nplot);
+[XX,YY] = meshgrid(xg,yg);
+ZZ = NaN(size(XX));
+
+[indy_up,indx_up]=find(XX&gt;=0);
+indx_up = unique(indx_up);
+indy_up = unique(indy_up);
+
+[indy_lo,indx_lo]=find(YY&lt;=0);
+indx_lo = unique(indx_lo);
+indy_lo = unique(indy_lo);
+
+indices_all=find(XX&gt;=0|YY&lt;=0);
+ZZ(indices_all)=1;
+Du_dy=(ZZ(1:Nplot-2,:)-ZZ(3:Nplot,:));
+Du_dx=(ZZ(:,3:Nplot)-ZZ(:,1:Nplot-2));
+diffy_ind=~isnan(Du_dy);
+diffx_ind=~isnan(Du_dx);
+</pre><h2>Export geometry<a name="2"></a></h2><pre class="codeinput">load(<span class="string">'upper_rectangle'</span>)
+load(<span class="string">'lower_rectangle'</span>)
+</pre><h2>Define the problem<a name="3"></a></h2><pre class="codeinput">a = 1;
+c = 1;        <span class="comment">% Coeffs in PDE</span>
+f = 1;        <span class="comment">% RHS of PDE</span>
+<span class="comment">% f = '1+x.^2+12*(y+1)';</span>
+<span class="comment">% f = '1./(x.^2+(y+1/2).^2)-1./((x-1/2).^2+y.^2)';</span>
+
+
+<span class="comment">% initguess=@(x,y) 1;</span>
+initguess = @(x,y) 0; <span class="comment">% u0~=1 @(0,0)</span>
+<span class="comment">% initguess = @(x,y) -1-sin(22*x).*sin(10*y);</span>
+<span class="comment">%initguess = @(x,y) 1-sin(22*x).*sin(10*y);</span>
+<span class="comment">% initguess = @(x,y) 0.0+(min(x.^2+(y+.5).^2,(x-.5).^2+y.^2)&lt;.005);</span>
+<span class="comment">% initguess = @(x,y) (min(x.^2+(y+.5).^2,(x-.5).^2+y.^2)&gt;.05);</span>
+<span class="comment">% initguess = @(x,y) -3+4*(x.^2+(y+1/2).^2&gt;.001);</span>
+
+<span class="comment">% Why the solution doesn't converge for the following two initial functions??</span>
+<span class="comment">% initguess = @(x,y) 1-.001./(x.^2+(y+1/2).^2).^(1/3)-.001./((x-1/2).^2+y.^2).^(1/3);</span>
+
+<span class="comment">% initguess = @(x,y) 10-7.*(abs(log(-x.^2-(y+1/2).^2))).^0.4999;</span>
+</pre><h2>Generate the mesh<a name="4"></a></h2><pre class="codeinput">errvals_inf= zeros(4,Nsteps);
+errvals_H1=zeros(4,Nsteps);
+
+<span class="keyword">for</span> Nmesh=25:25:100
+</pre><pre class="codeinput">meshgenfun = <span class="string">'1./(x.^2+y.^2)'</span>; <span class="comment">% function for adaptive mesh generation</span>
+
+[~,p_up,e_up,t_up]=adaptmesh(g_up,b_up,c,a,meshgenfun,<span class="string">'Ngen'</span>, Nmesh);
+[~,p_lo,e_lo,t_lo]=adaptmesh(g_lo,b_lo,c,a,meshgenfun,<span class="string">'Ngen'</span>, Nmesh);
+<span class="comment">% Generate the mesh for the first rectangle</span>
+<span class="comment">% [p_up,e_up,t_up]=initmesh(g_up);</span>
+<span class="comment">% [p_up,e_up,t_up]=refinemesh(g_up,p_up,e_up,t_up);</span>
+<span class="comment">% [p_up,e_up,t_up]=refinemesh(g_up,p_up,e_up,t_up);</span>
+<span class="comment">% % [p_up,e_up,t_up]=refinemesh(g_up,p_up,e_up,t_up);</span>
+figure(1);
+pdemesh(p_up,e_up,t_up);
+xlim ([-1.5,1.5]);
+axis <span class="string">equal</span>
+<span class="comment">% % Generate the mesh for the second rectangle</span>
+<span class="comment">% [p_lo,e_lo,t_lo]=initmesh(g_lo);</span>
+<span class="comment">% [p_lo,e_lo,t_lo]=refinemesh(g_lo,p_lo,e_lo,t_lo);</span>
+<span class="comment">% [p_lo,e_lo,t_lo]=refinemesh(g_lo,p_lo,e_lo,t_lo);</span>
+<span class="comment">% % [p_lo,e_lo,t_lo]=refinemesh(g_lo,p_lo,e_lo,t_lo);</span>
+figure(2);
+pdemesh(p_lo,e_lo,t_lo);
+xlim ([-1.5,1.5]);
+axis <span class="string">equal</span>
+</pre><pre class="codeoutput">Number of triangles: 172
+Number of triangles: 178
+Number of triangles: 197
+Number of triangles: 201
+Number of triangles: 213
+Number of triangles: 217
+Number of triangles: 229
+Number of triangles: 233
+Number of triangles: 245
+Number of triangles: 249
+Number of triangles: 261
+Number of triangles: 265
+Number of triangles: 277
+Number of triangles: 281
+Number of triangles: 293
+Number of triangles: 297
+Number of triangles: 309
+Number of triangles: 313
+Number of triangles: 325
+Number of triangles: 329
+Number of triangles: 341
+Number of triangles: 345
+Number of triangles: 357
+Number of triangles: 361
+Number of triangles: 373
+Number of triangles: 377
+
+Maximum number of refinement passes obtained.
+Number of triangles: 168
+Number of triangles: 174
+Number of triangles: 192
+Number of triangles: 196
+Number of triangles: 212
+Number of triangles: 216
+Number of triangles: 228
+Number of triangles: 232
+Number of triangles: 244
+Number of triangles: 248
+Number of triangles: 260
+Number of triangles: 264
+Number of triangles: 276
+Number of triangles: 280
+Number of triangles: 292
+Number of triangles: 296
+Number of triangles: 308
+Number of triangles: 312
+Number of triangles: 324
+Number of triangles: 328
+Number of triangles: 340
+Number of triangles: 344
+Number of triangles: 356
+Number of triangles: 360
+Number of triangles: 372
+Number of triangles: 376
+
+Maximum number of refinement passes obtained.
+</pre><img vspace="5" hspace="5" src="lshape_neumann_meshsize_01.png" alt=""> <img vspace="5" hspace="5" src="lshape_neumann_meshsize_02.png" alt=""> <pre class="codeoutput">Number of triangles: 172
+Number of triangles: 178
+Number of triangles: 197
+Number of triangles: 201
+Number of triangles: 213
+Number of triangles: 217
+Number of triangles: 229
+Number of triangles: 233
+Number of triangles: 245
+Number of triangles: 249
+Number of triangles: 261
+Number of triangles: 265
+Number of triangles: 277
+Number of triangles: 281
+Number of triangles: 293
+Number of triangles: 297
+Number of triangles: 309
+Number of triangles: 313
+Number of triangles: 325
+Number of triangles: 329
+Number of triangles: 341
+Number of triangles: 345
+Number of triangles: 357
+Number of triangles: 361
+Number of triangles: 373
+Number of triangles: 377
+Number of triangles: 389
+Number of triangles: 393
+Number of triangles: 405
+Number of triangles: 409
+Number of triangles: 421
+Number of triangles: 425
+Number of triangles: 437
+Number of triangles: 441
+Number of triangles: 453
+Number of triangles: 457
+Number of triangles: 469
+Number of triangles: 473
+Number of triangles: 485
+Number of triangles: 489
+Number of triangles: 501
+Number of triangles: 505
+Number of triangles: 517
+Number of triangles: 521
+Number of triangles: 533
+Number of triangles: 537
+Number of triangles: 549
+Number of triangles: 553
+Number of triangles: 565
+Number of triangles: 569
+Number of triangles: 581
+
+Maximum number of refinement passes obtained.
+Number of triangles: 168
+Number of triangles: 174
+Number of triangles: 192
+Number of triangles: 196
+Number of triangles: 212
+Number of triangles: 216
+Number of triangles: 228
+Number of triangles: 232
+Number of triangles: 244
+Number of triangles: 248
+Number of triangles: 260
+Number of triangles: 264
+Number of triangles: 276
+Number of triangles: 280
+Number of triangles: 292
+Number of triangles: 296
+Number of triangles: 308
+Number of triangles: 312
+Number of triangles: 324
+Number of triangles: 328
+Number of triangles: 340
+Number of triangles: 344
+Number of triangles: 356
+Number of triangles: 360
+Number of triangles: 372
+Number of triangles: 376
+Number of triangles: 388
+Number of triangles: 392
+Number of triangles: 404
+Number of triangles: 408
+Number of triangles: 420
+Number of triangles: 424
+Number of triangles: 436
+Number of triangles: 440
+Number of triangles: 452
+Number of triangles: 456
+Number of triangles: 468
+Number of triangles: 472
+Number of triangles: 484
+Number of triangles: 488
+Number of triangles: 500
+Number of triangles: 504
+Number of triangles: 516
+Number of triangles: 520
+Number of triangles: 532
+Number of triangles: 536
+Number of triangles: 548
+Number of triangles: 552
+Number of triangles: 564
+Number of triangles: 568
+Number of triangles: 580
+
+Maximum number of refinement passes obtained.
+</pre><img vspace="5" hspace="5" src="lshape_neumann_meshsize_04.png" alt=""> <img vspace="5" hspace="5" src="lshape_neumann_meshsize_05.png" alt=""> <pre class="codeoutput">Number of triangles: 172
+Number of triangles: 178
+Number of triangles: 197
+Number of triangles: 201
+Number of triangles: 213
+Number of triangles: 217
+Number of triangles: 229
+Number of triangles: 233
+Number of triangles: 245
+Number of triangles: 249
+Number of triangles: 261
+Number of triangles: 265
+Number of triangles: 277
+Number of triangles: 281
+Number of triangles: 293
+Number of triangles: 297
+Number of triangles: 309
+Number of triangles: 313
+Number of triangles: 325
+Number of triangles: 329
+Number of triangles: 341
+Number of triangles: 345
+Number of triangles: 357
+Number of triangles: 361
+Number of triangles: 373
+Number of triangles: 377
+Number of triangles: 389
+Number of triangles: 393
+Number of triangles: 405
+Number of triangles: 409
+Number of triangles: 421
+Number of triangles: 425
+Number of triangles: 437
+Number of triangles: 441
+Number of triangles: 453
+Number of triangles: 457
+Number of triangles: 469
+Number of triangles: 473
+Number of triangles: 485
+Number of triangles: 489
+Number of triangles: 501
+Number of triangles: 505
+Number of triangles: 517
+Number of triangles: 521
+Number of triangles: 533
+Number of triangles: 537
+Number of triangles: 549
+Number of triangles: 553
+Number of triangles: 565
+Number of triangles: 569
+Number of triangles: 581
+Number of triangles: 585
+Number of triangles: 597
+Number of triangles: 601
+Number of triangles: 613
+Number of triangles: 617
+Number of triangles: 629
+Number of triangles: 633
+Number of triangles: 645
+Number of triangles: 649
+Number of triangles: 661
+Number of triangles: 665
+Number of triangles: 677
+Number of triangles: 681
+Number of triangles: 693
+Number of triangles: 697
+Number of triangles: 709
+Number of triangles: 713
+Number of triangles: 725
+Number of triangles: 729
+Number of triangles: 741
+Number of triangles: 745
+Number of triangles: 757
+Number of triangles: 761
+Number of triangles: 773
+Number of triangles: 777
+
+Maximum number of refinement passes obtained.
+Number of triangles: 168
+Number of triangles: 174
+Number of triangles: 192
+Number of triangles: 196
+Number of triangles: 212
+Number of triangles: 216
+Number of triangles: 228
+Number of triangles: 232
+Number of triangles: 244
+Number of triangles: 248
+Number of triangles: 260
+Number of triangles: 264
+Number of triangles: 276
+Number of triangles: 280
+Number of triangles: 292
+Number of triangles: 296
+Number of triangles: 308
+Number of triangles: 312
+Number of triangles: 324
+Number of triangles: 328
+Number of triangles: 340
+Number of triangles: 344
+Number of triangles: 356
+Number of triangles: 360
+Number of triangles: 372
+Number of triangles: 376
+Number of triangles: 388
+Number of triangles: 392
+Number of triangles: 404
+Number of triangles: 408
+Number of triangles: 420
+Number of triangles: 424
+Number of triangles: 436
+Number of triangles: 440
+Number of triangles: 452
+Number of triangles: 456
+Number of triangles: 468
+Number of triangles: 472
+Number of triangles: 484
+Number of triangles: 488
+Number of triangles: 500
+Number of triangles: 504
+Number of triangles: 516
+Number of triangles: 520
+Number of triangles: 532
+Number of triangles: 536
+Number of triangles: 548
+Number of triangles: 552
+Number of triangles: 564
+Number of triangles: 568
+Number of triangles: 580
+Number of triangles: 584
+Number of triangles: 596
+Number of triangles: 600
+Number of triangles: 612
+Number of triangles: 616
+Number of triangles: 628
+Number of triangles: 632
+Number of triangles: 644
+Number of triangles: 648
+Number of triangles: 660
+Number of triangles: 664
+Number of triangles: 676
+Number of triangles: 680
+Number of triangles: 692
+Number of triangles: 696
+Number of triangles: 708
+Number of triangles: 712
+Number of triangles: 724
+Number of triangles: 728
+Number of triangles: 740
+Number of triangles: 744
+Number of triangles: 756
+Number of triangles: 760
+Number of triangles: 772
+Number of triangles: 776
+
+Maximum number of refinement passes obtained.
+</pre><img vspace="5" hspace="5" src="lshape_neumann_meshsize_07.png" alt=""> <img vspace="5" hspace="5" src="lshape_neumann_meshsize_08.png" alt=""> <pre class="codeoutput">Number of triangles: 172
+Number of triangles: 178
+Number of triangles: 197
+Number of triangles: 201
+Number of triangles: 213
+Number of triangles: 217
+Number of triangles: 229
+Number of triangles: 233
+Number of triangles: 245
+Number of triangles: 249
+Number of triangles: 261
+Number of triangles: 265
+Number of triangles: 277
+Number of triangles: 281
+Number of triangles: 293
+Number of triangles: 297
+Number of triangles: 309
+Number of triangles: 313
+Number of triangles: 325
+Number of triangles: 329
+Number of triangles: 341
+Number of triangles: 345
+Number of triangles: 357
+Number of triangles: 361
+Number of triangles: 373
+Number of triangles: 377
+Number of triangles: 389
+Number of triangles: 393
+Number of triangles: 405
+Number of triangles: 409
+Number of triangles: 421
+Number of triangles: 425
+Number of triangles: 437
+Number of triangles: 441
+Number of triangles: 453
+Number of triangles: 457
+Number of triangles: 469
+Number of triangles: 473
+Number of triangles: 485
+Number of triangles: 489
+Number of triangles: 501
+Number of triangles: 505
+Number of triangles: 517
+Number of triangles: 521
+Number of triangles: 533
+Number of triangles: 537
+Number of triangles: 549
+Number of triangles: 553
+Number of triangles: 565
+Number of triangles: 569
+Number of triangles: 581
+Number of triangles: 585
+Number of triangles: 597
+Number of triangles: 601
+Number of triangles: 613
+Number of triangles: 617
+Number of triangles: 629
+Number of triangles: 633
+Number of triangles: 645
+Number of triangles: 649
+Number of triangles: 661
+Number of triangles: 665
+Number of triangles: 677
+Number of triangles: 681
+Number of triangles: 693
+Number of triangles: 697
+Number of triangles: 709
+Number of triangles: 713
+Number of triangles: 725
+Number of triangles: 729
+Number of triangles: 741
+Number of triangles: 745
+Number of triangles: 757
+Number of triangles: 761
+Number of triangles: 773
+Number of triangles: 777
+Number of triangles: 789
+Number of triangles: 793
+Number of triangles: 805
+Number of triangles: 809
+Number of triangles: 821
+Number of triangles: 825
+Number of triangles: 837
+Number of triangles: 841
+Number of triangles: 853
+Number of triangles: 857
+Number of triangles: 869
+Number of triangles: 873
+Number of triangles: 885
+Number of triangles: 889
+Number of triangles: 901
+Number of triangles: 905
+Number of triangles: 917
+Number of triangles: 921
+Number of triangles: 933
+Number of triangles: 937
+Number of triangles: 949
+Number of triangles: 953
+Number of triangles: 965
+Number of triangles: 969
+Number of triangles: 981
+
+Maximum number of refinement passes obtained.
+Number of triangles: 168
+Number of triangles: 174
+Number of triangles: 192
+Number of triangles: 196
+Number of triangles: 212
+Number of triangles: 216
+Number of triangles: 228
+Number of triangles: 232
+Number of triangles: 244
+Number of triangles: 248
+Number of triangles: 260
+Number of triangles: 264
+Number of triangles: 276
+Number of triangles: 280
+Number of triangles: 292
+Number of triangles: 296
+Number of triangles: 308
+Number of triangles: 312
+Number of triangles: 324
+Number of triangles: 328
+Number of triangles: 340
+Number of triangles: 344
+Number of triangles: 356
+Number of triangles: 360
+Number of triangles: 372
+Number of triangles: 376
+Number of triangles: 388
+Number of triangles: 392
+Number of triangles: 404
+Number of triangles: 408
+Number of triangles: 420
+Number of triangles: 424
+Number of triangles: 436
+Number of triangles: 440
+Number of triangles: 452
+Number of triangles: 456
+Number of triangles: 468
+Number of triangles: 472
+Number of triangles: 484
+Number of triangles: 488
+Number of triangles: 500
+Number of triangles: 504
+Number of triangles: 516
+Number of triangles: 520
+Number of triangles: 532
+Number of triangles: 536
+Number of triangles: 548
+Number of triangles: 552
+Number of triangles: 564
+Number of triangles: 568
+Number of triangles: 580
+Number of triangles: 584
+Number of triangles: 596
+Number of triangles: 600
+Number of triangles: 612
+Number of triangles: 616
+Number of triangles: 628
+Number of triangles: 632
+Number of triangles: 644
+Number of triangles: 648
+Number of triangles: 660
+Number of triangles: 664
+Number of triangles: 676
+Number of triangles: 680
+Number of triangles: 692
+Number of triangles: 696
+Number of triangles: 708
+Number of triangles: 712
+Number of triangles: 724
+Number of triangles: 728
+Number of triangles: 740
+Number of triangles: 744
+Number of triangles: 756
+Number of triangles: 760
+Number of triangles: 772
+Number of triangles: 776
+Number of triangles: 788
+Number of triangles: 792
+Number of triangles: 804
+Number of triangles: 808
+Number of triangles: 820
+Number of triangles: 824
+Number of triangles: 836
+Number of triangles: 840
+Number of triangles: 852
+Number of triangles: 856
+Number of triangles: 868
+Number of triangles: 872
+Number of triangles: 884
+Number of triangles: 888
+Number of triangles: 900
+Number of triangles: 904
+Number of triangles: 916
+Number of triangles: 920
+Number of triangles: 932
+Number of triangles: 936
+Number of triangles: 1094
+Number of triangles: 1098
+Number of triangles: 1110
+Number of triangles: 1114
+Number of triangles: 1122
+
+Maximum number of refinement passes obtained.
+</pre><img vspace="5" hspace="5" src="lshape_neumann_meshsize_10.png" alt=""> <img vspace="5" hspace="5" src="lshape_neumann_meshsize_11.png" alt=""> <h2>Obtain relative matrices<a name="6"></a></h2><pre class="codeinput">[K_up,M_up,F_up,Q_up,G_up,H_up,R_up]=assempde(b_up,p_up,e_up,t_up,c,a,f);
+[K_lo,M_lo,F_lo,Q_lo,G_lo,H_lo,R_lo]=assempde(b_lo,p_lo,e_lo,t_lo,c,a,f);
+</pre><h2>Assign true solution<a name="7"></a></h2><pre class="codeinput">u_up_true = ones(1,length(p_up));
+u_lo_true = ones(1,length(p_lo));
+</pre><h2>Iterations<a name="8"></a></h2><pre class="codeinput">counter = 0;
+<span class="keyword">if</span> rec == 1
+    Vid = VideoWriter(<span class="string">'Temp_video'</span>, <span class="string">'MPEG-4'</span>);
+    Vid.FrameRate = 3;
+    Vid.Quality = 100;
+    open(Vid);
+<span class="keyword">end</span>
+ZZ(XX&gt;=0) = initguess(XX(XX&gt;=0),YY(XX&gt;=0));
+ZZ(YY&lt;=0) = initguess(XX(YY&lt;=0),YY(YY&lt;=0));
+figure(3)
+my_plot_new(XX,YY,ZZ,az,el,v, plot_range, col_range,0,fix_axes)
+
+<span class="keyword">if</span> rec == 1
+    frame = getframe(gcf);
+    writeVideo(Vid,frame);
+<span class="keyword">end</span>
+pause
+
+<span class="comment">% Note that pind_up2 represents the indices of the mesh points at the boundary in the</span>
+<span class="comment">% upper domain</span>
+[pind_up1,pind_up2]=find(H_up);
+<span class="comment">% Remove the problematic point</span>
+ind=find((abs(p_up(1,pind_up2) -0)&lt;1e-10) &amp; (abs(p_up(2,pind_up2) -0)&lt;1e-10))
+pind_up1(ind)=[];
+pind_up2(ind)=[];
+<span class="comment">% Update the Dirichlet condition matrix H_up</span>
+H_up=H_up(pind_up1,:);
+
+
+[pind_lo1,pind_lo2]=find(H_lo);
+<span class="comment">% Remove the problematic point</span>
+ind=find((abs(p_lo(1,pind_lo2) -0)&lt;1e-10) &amp; (abs(p_lo(2,pind_lo2) -0)&lt;1e-10))
+pind_lo1(ind)=[];
+pind_lo2(ind)=[];
+<span class="comment">% Update the Dirichlet condition matrix H_lo</span>
+H_lo=H_lo(pind_lo1,:);
+
+
+bnew_up=zeros(length(pind_up2),1);
+bnew_lo=zeros(length(pind_lo2),1);
+
+<span class="keyword">for</span> step = 1:Nsteps;
+    <span class="keyword">if</span> step == 1
+        bfun_up = @(x,y) initguess(x,y);
+    <span class="keyword">else</span>
+        bfun_up = @(x,y) tri2grid(p_lo,t_lo,u_lo,x,y);
+    <span class="keyword">end</span>
+<span class="comment">% Update  boundary conditions</span>
+<span class="keyword">for</span> i=1:length(pind_up2);
+    bnew_up(i)=bfun_up(p_up(1,pind_up2(i)),p_up(2,pind_up2(i)));
+<span class="keyword">end</span>
+<span class="comment">% Update the Dirichlet condtion vector R_up</span>
+ R_up = H_up(:,pind_up2)*bnew_up;
+
+<span class="comment">% Solve the pde in the upper domain</span>
+u_up=assempde(K_up,M_up,F_up,Q_up,G_up,H_up,R_up);
+
+<span class="comment">% Plot the solution</span>
+ZZ(XX&gt;=0) = tri2grid(p_up,t_up,u_up,xg(indx_up),yg(indy_up));
+figure(3)
+my_plot_new(XX,YY,ZZ,az,el,v, plot_range, col_range, counter,fix_axes);
+
+<span class="keyword">if</span> rec == 1
+    frame = getframe(gcf);
+    writeVideo(Vid,frame);
+<span class="keyword">end</span>
+
+pause(T)
+counter = counter+1;
+
+bfun_lo = @(x,y) tri2grid(p_up,t_up,u_up,x,y);
+
+<span class="comment">% Update the boundary conditions</span>
+<span class="keyword">for</span> i=1:length(pind_lo2);
+    bnew_lo(i)=bfun_lo(p_lo(1,pind_lo2(i)),p_lo(2,pind_lo2(i)));
+<span class="keyword">end</span>
+
+<span class="comment">% Update the Dirichlet condition vector</span>
+R_lo = H_lo(:,pind_lo2)*bnew_lo;
+
+<span class="comment">% Solve the pde in the lower domain</span>
+u_lo=assempde(K_lo,M_lo,F_lo,Q_lo,G_lo,H_lo,R_lo);
+
+<span class="comment">%Plot the solution</span>
+ZZ(YY&lt;=0) = tri2grid(p_lo,t_lo,u_lo,xg(indx_lo),yg(indy_lo));
+figure(3)
+my_plot_new(XX,YY,ZZ,az,el, v, plot_range, col_range, counter,fix_axes);
+
+<span class="keyword">if</span> rec == 1
+    frame = getframe(gcf);
+    writeVideo(Vid,frame);
+<span class="keyword">end</span>
+
+pause(T)
+
+counter = counter+1;
+
+<span class="comment">% The error calculated with respect to infinity norm</span>
+errvals_inf(Nmesh/25,step)=max(max(abs([u_up(:); u_lo(:)]-[u_up_true(:); u_lo_true(:)])));
+
+<span class="comment">% The error calculated with respect to H1 norm</span>
+
+<span class="comment">% The difference between the solution from ASM and the true solution</span>
+u_diff=ZZ-ones(size(ZZ));
+<span class="comment">% Square the difference</span>
+u_diff_square=u_diff.*u_diff;
+<span class="comment">%  stepsize on x-axis</span>
+dx=(1-(-1))/(Nplot-1);
+<span class="comment">% stepsize on y-axis</span>
+dy=(1-(-1))/(Nplot-1);
+integral_1=sum(sum (dx*dy*u_diff_square(indices_all)));
+
+<span class="comment">% Approximate the derivatives by Central Difference Method</span>
+Du_dy=(ZZ(3:Nplot,:)-ZZ(1:Nplot-2,:))/(2*dy);
+Du_dx=(ZZ(:,3:Nplot)-ZZ(:,1:Nplot-2))/(2*dx);
+<span class="comment">% Integrate on the y-direction</span>
+integrand_y=Du_dy.*Du_dy*dx*dy;
+<span class="comment">% Integrate on the x-direction</span>
+integrand_x=Du_dx.*Du_dx*dx*dy;
+integrals=[integral_1,sum(sum(integrand_y(diffy_ind))),sum(sum(integrand_x(diffx_ind)))];
+errvals_H1(Nmesh/25,step)=sqrt(sum(integrals));
+<span class="keyword">end</span>
+</pre><pre class="codeoutput">
+ind =
+
+     1
+
+
+ind =
+
+     1
+
+</pre><img vspace="5" hspace="5" src="lshape_neumann_meshsize_03.png" alt=""> <pre class="codeoutput">
+ind =
+
+     1
+
+
+ind =
+
+     1
+
+</pre><img vspace="5" hspace="5" src="lshape_neumann_meshsize_06.png" alt=""> <pre class="codeoutput">
+ind =
+
+     1    38    39    40    41    42    43    44    45
+
+
+ind =
+
+     1    37    38    39    40    41    42    43    44
+
+</pre><img vspace="5" hspace="5" src="lshape_neumann_meshsize_09.png" alt=""> <pre class="codeoutput">
+ind =
+
+  Columns 1 through 13
+
+     1    38    39    40    41    42    43    44    45    46    47    48    49
+
+  Columns 14 through 22
+
+    50    51    52    53    54    55    56    57    58
+
+
+ind =
+
+  Columns 1 through 13
+
+     1    37    38    39    40    41    42    43    44    45    46    47    48
+
+  Columns 14 through 22
+
+    49    50    51    52    53    54    55    56    57
+
+</pre><img vspace="5" hspace="5" src="lshape_neumann_meshsize_12.png" alt=""> <pre class="codeinput"><span class="keyword">end</span>
+
+<span class="keyword">if</span> rec == 1
+    close(Vid);
+<span class="keyword">end</span>
+</pre><h2>Plot of <tt>|u_n-u_true</tt>| versus Nsteps<a name="10"></a></h2><pre class="codeinput">figure(4)
+nn = 1:Nsteps;
+semilogy(nn,[errvals_inf(1,:);errvals_inf(2,:);errvals_inf(3,:);errvals_inf(4,:)]);
+legend(<span class="string">'Nmesh=25'</span>,<span class="string">'Nmesh=50'</span>, <span class="string">'Nmesh=75'</span>,<span class="string">'Nmesh=100'</span>)
+xlabel(<span class="string">'Number of Iterations'</span>); <span class="comment">% x-axis label</span>
+ylabel(<span class="string">'Log(errvals_inf)'</span>) ;    <span class="comment">% y-axis label</span>
+
+figure(5)
+nn = 1:Nsteps;
+semilogy(nn,[errvals_H1(1,:);errvals_H1(2,:);errvals_H1(3,:);errvals_H1(4,:)]);
+legend(<span class="string">'Nmesh=25'</span>,<span class="string">'Nmesh=50'</span>, <span class="string">'Nmesh=75'</span>,<span class="string">'Nmesh=100'</span>);
+xlabel(<span class="string">'Number of Iterations'</span>); <span class="comment">% x-axis label</span>
+ylabel(<span class="string">'Log(errvals_H1)'</span>);     <span class="comment">% y-axis label</span>
+toc
+</pre><pre class="codeoutput">Elapsed time is 236.665462 seconds.
+</pre><img vspace="5" hspace="5" src="lshape_neumann_meshsize_13.png" alt=""> <img vspace="5" hspace="5" src="lshape_neumann_meshsize_14.png" alt=""> <p class="footer"><br><a href="http://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2015a</a><br></p></div><!--
+##### SOURCE BEGIN #####
+%% Fix parameters
+tic;
+Nsteps = 80;   % Number of iterations
+Nplot = 101;   % Fineness of plots
+T = 10*eps;   % Time delay
+az = 13;      % Plot viewing angle
+el = 48;      % Plot viewing height
+v = 0.0;      % Camera speed
+fix_axes = 0;               % Set to 1 for fixed axes   
+plot_range = [-0.1 1.1];    % z-axis range if fixed
+% col_range = plot_range;   % Fixed colour range
+% col_range = [-.7 1.1];
+col_range = 'manual';       % Varying colour range
+rec = 0;                    % record on/off
+xg = linspace(-1,1,Nplot);
+yg = linspace(-1,1,Nplot);
+[XX,YY] = meshgrid(xg,yg);
+ZZ = NaN(size(XX));
+
+[indy_up,indx_up]=find(XX>=0);
+indx_up = unique(indx_up);
+indy_up = unique(indy_up);
+
+[indy_lo,indx_lo]=find(YY<=0);
+indx_lo = unique(indx_lo);
+indy_lo = unique(indy_lo);
+
+indices_all=find(XX>=0|YY<=0);
+ZZ(indices_all)=1;
+Du_dy=(ZZ(1:Nplot-2,:)-ZZ(3:Nplot,:));
+Du_dx=(ZZ(:,3:Nplot)-ZZ(:,1:Nplot-2));
+diffy_ind=~isnan(Du_dy);
+diffx_ind=~isnan(Du_dx);
+
+%% Export geometry
+load('upper_rectangle')
+load('lower_rectangle')
+%% Define the problem
+a = 1;
+c = 1;        % Coeffs in PDE
+f = 1;        % RHS of PDE
+% f = '1+x.^2+12*(y+1)';
+% f = '1./(x.^2+(y+1/2).^2)-1./((x-1/2).^2+y.^2)';
+
+
+% initguess=@(x,y) 1;
+initguess = @(x,y) 0; % u0~=1 @(0,0)
+% initguess = @(x,y) -1-sin(22*x).*sin(10*y);
+%initguess = @(x,y) 1-sin(22*x).*sin(10*y);
+% initguess = @(x,y) 0.0+(min(x.^2+(y+.5).^2,(x-.5).^2+y.^2)<.005);
+% initguess = @(x,y) (min(x.^2+(y+.5).^2,(x-.5).^2+y.^2)>.05);
+% initguess = @(x,y) -3+4*(x.^2+(y+1/2).^2>.001);
+
+% Why the solution doesn't converge for the following two initial functions??
+% initguess = @(x,y) 1-.001./(x.^2+(y+1/2).^2).^(1/3)-.001./((x-1/2).^2+y.^2).^(1/3);
+
+% initguess = @(x,y) 10-7.*(abs(log(-x.^2-(y+1/2).^2))).^0.4999;
+%% Generate the mesh
+errvals_inf= zeros(4,Nsteps); 
+errvals_H1=zeros(4,Nsteps);
+
+for Nmesh=25:25:100
+    
+
+meshgenfun = '1./(x.^2+y.^2)'; % function for adaptive mesh generation
+
+[~,p_up,e_up,t_up]=adaptmesh(g_up,b_up,c,a,meshgenfun,'Ngen', Nmesh);
+[~,p_lo,e_lo,t_lo]=adaptmesh(g_lo,b_lo,c,a,meshgenfun,'Ngen', Nmesh);
+% Generate the mesh for the first rectangle
+% [p_up,e_up,t_up]=initmesh(g_up);
+% [p_up,e_up,t_up]=refinemesh(g_up,p_up,e_up,t_up);
+% [p_up,e_up,t_up]=refinemesh(g_up,p_up,e_up,t_up);
+% % [p_up,e_up,t_up]=refinemesh(g_up,p_up,e_up,t_up);
+figure(1);
+pdemesh(p_up,e_up,t_up);
+xlim ([-1.5,1.5]);
+axis equal
+% % Generate the mesh for the second rectangle
+% [p_lo,e_lo,t_lo]=initmesh(g_lo);
+% [p_lo,e_lo,t_lo]=refinemesh(g_lo,p_lo,e_lo,t_lo);
+% [p_lo,e_lo,t_lo]=refinemesh(g_lo,p_lo,e_lo,t_lo);
+% % [p_lo,e_lo,t_lo]=refinemesh(g_lo,p_lo,e_lo,t_lo);
+figure(2);
+pdemesh(p_lo,e_lo,t_lo);
+xlim ([-1.5,1.5]);
+axis equal
+
+%% Obtain relative matrices 
+[K_up,M_up,F_up,Q_up,G_up,H_up,R_up]=assempde(b_up,p_up,e_up,t_up,c,a,f);
+[K_lo,M_lo,F_lo,Q_lo,G_lo,H_lo,R_lo]=assempde(b_lo,p_lo,e_lo,t_lo,c,a,f);
+%% Assign true solution
+u_up_true = ones(1,length(p_up));
+u_lo_true = ones(1,length(p_lo));
+%% Iterations
+
+counter = 0;
+if rec == 1
+    Vid = VideoWriter('Temp_video', 'MPEG-4');
+    Vid.FrameRate = 3;
+    Vid.Quality = 100;
+    open(Vid);
+end
+ZZ(XX>=0) = initguess(XX(XX>=0),YY(XX>=0));
+ZZ(YY<=0) = initguess(XX(YY<=0),YY(YY<=0));
+figure(3)
+my_plot_new(XX,YY,ZZ,az,el,v, plot_range, col_range,0,fix_axes)
+
+if rec == 1
+    frame = getframe(gcf);
+    writeVideo(Vid,frame);
+end
+pause
+
+% Note that pind_up2 represents the indices of the mesh points at the boundary in the
+% upper domain
+[pind_up1,pind_up2]=find(H_up);
+% Remove the problematic point
+ind=find((abs(p_up(1,pind_up2) -0)<1e-10) & (abs(p_up(2,pind_up2) -0)<1e-10))
+pind_up1(ind)=[];
+pind_up2(ind)=[];
+% Update the Dirichlet condition matrix H_up
+H_up=H_up(pind_up1,:);
+
+
+[pind_lo1,pind_lo2]=find(H_lo);
+% Remove the problematic point
+ind=find((abs(p_lo(1,pind_lo2) -0)<1e-10) & (abs(p_lo(2,pind_lo2) -0)<1e-10))
+pind_lo1(ind)=[];
+pind_lo2(ind)=[];
+% Update the Dirichlet condition matrix H_lo
+H_lo=H_lo(pind_lo1,:);
+
+
+bnew_up=zeros(length(pind_up2),1);
+bnew_lo=zeros(length(pind_lo2),1);
+
+for step = 1:Nsteps;
+    if step == 1
+        bfun_up = @(x,y) initguess(x,y);
+    else
+        bfun_up = @(x,y) tri2grid(p_lo,t_lo,u_lo,x,y);
+    end
+% Update  boundary conditions
+for i=1:length(pind_up2);
+    bnew_up(i)=bfun_up(p_up(1,pind_up2(i)),p_up(2,pind_up2(i)));
+end
+% Update the Dirichlet condtion vector R_up
+ R_up = H_up(:,pind_up2)*bnew_up;
+ 
+% Solve the pde in the upper domain
+u_up=assempde(K_up,M_up,F_up,Q_up,G_up,H_up,R_up);
+
+% Plot the solution
+ZZ(XX>=0) = tri2grid(p_up,t_up,u_up,xg(indx_up),yg(indy_up));
+figure(3)
+my_plot_new(XX,YY,ZZ,az,el,v, plot_range, col_range, counter,fix_axes);
+
+if rec == 1
+    frame = getframe(gcf);
+    writeVideo(Vid,frame);
+end
+
+pause(T)
+counter = counter+1;
+
+bfun_lo = @(x,y) tri2grid(p_up,t_up,u_up,x,y);
+
+% Update the boundary conditions
+for i=1:length(pind_lo2);
+    bnew_lo(i)=bfun_lo(p_lo(1,pind_lo2(i)),p_lo(2,pind_lo2(i)));
+end
+
+% Update the Dirichlet condition vector 
+R_lo = H_lo(:,pind_lo2)*bnew_lo;
+
+% Solve the pde in the lower domain
+u_lo=assempde(K_lo,M_lo,F_lo,Q_lo,G_lo,H_lo,R_lo);
+
+%Plot the solution
+ZZ(YY<=0) = tri2grid(p_lo,t_lo,u_lo,xg(indx_lo),yg(indy_lo));
+figure(3)
+my_plot_new(XX,YY,ZZ,az,el, v, plot_range, col_range, counter,fix_axes);
+
+if rec == 1
+    frame = getframe(gcf);
+    writeVideo(Vid,frame);
+end
+
+pause(T)
+
+counter = counter+1;
+
+% The error calculated with respect to infinity norm
+errvals_inf(Nmesh/25,step)=max(max(abs([u_up(:); u_lo(:)]-[u_up_true(:); u_lo_true(:)])));
+
+% The error calculated with respect to H1 norm
+
+% The difference between the solution from ASM and the true solution
+u_diff=ZZ-ones(size(ZZ));
+% Square the difference
+u_diff_square=u_diff.*u_diff;
+%  stepsize on x-axis
+dx=(1-(-1))/(Nplot-1);
+% stepsize on y-axis
+dy=(1-(-1))/(Nplot-1);
+integral_1=sum(sum (dx*dy*u_diff_square(indices_all)));
+
+% Approximate the derivatives by Central Difference Method
+Du_dy=(ZZ(3:Nplot,:)-ZZ(1:Nplot-2,:))/(2*dy);
+Du_dx=(ZZ(:,3:Nplot)-ZZ(:,1:Nplot-2))/(2*dx);
+% Integrate on the y-direction
+integrand_y=Du_dy.*Du_dy*dx*dy;
+% Integrate on the x-direction
+integrand_x=Du_dx.*Du_dx*dx*dy;
+integrals=[integral_1,sum(sum(integrand_y(diffy_ind))),sum(sum(integrand_x(diffx_ind)))];
+errvals_H1(Nmesh/25,step)=sqrt(sum(integrals));
+end
+end
+
+if rec == 1
+    close(Vid);
+end
+
+
+
+%% Plot of ||u_n-u_true|| versus Nsteps
+figure(4)
+nn = 1:Nsteps;
+semilogy(nn,[errvals_inf(1,:);errvals_inf(2,:);errvals_inf(3,:);errvals_inf(4,:)]);
+legend('Nmesh=25','Nmesh=50', 'Nmesh=75','Nmesh=100')
+xlabel('Number of Iterations'); % x-axis label
+ylabel('Log(errvals_inf)') ;    % y-axis label
+
+figure(5)
+nn = 1:Nsteps;
+semilogy(nn,[errvals_H1(1,:);errvals_H1(2,:);errvals_H1(3,:);errvals_H1(4,:)]);
+legend('Nmesh=25','Nmesh=50', 'Nmesh=75','Nmesh=100');
+xlabel('Number of Iterations'); % x-axis label
+ylabel('Log(errvals_H1)');     % y-axis label
+toc
+
+
+
+
+
+
+##### SOURCE END #####
+--></body></html>
